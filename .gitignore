@@ -134,3 +134,8 @@ weights
 .DS_Store
 output/
 pretrains/
+
+data/**
+!data/*.csv
+!data/check_data.py
+!data/download_data.py
