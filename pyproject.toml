@@ -48,3 +48,7 @@ clip = { git = "https://github.com/openai/CLIP.git" }
 name = "pytorch-cu124"
 url = "https://download.pytorch.org/whl/cu124"
 explicit = true
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
