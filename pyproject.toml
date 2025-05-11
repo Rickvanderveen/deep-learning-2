@@ -20,6 +20,7 @@ dependencies = [
     "onnxscript>=0.2.4",
     "opencv-python~=4.10.0.84",
     "pandas~=2.2.2",
+    "pilgram2>=2.0.6",
     "pillow~=10.4.0",
     "pyyaml~=6.0.1",
     "scipy~=1.14.0",
