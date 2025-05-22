@@ -22,8 +22,9 @@ def convert_csv(in_data_folder, out_data_folder):
             with open(file, mode ='r') as file, open(output_file, mode='w') as file_out:
                 csv_file = csv.reader(file)
                 csv_file_out = csv.writer(file_out)
-                # skip first row
-                next(csv_file)
+                # write header
+                header = next(csv_file)
+                csv_file_out.writerow(header)
                 # read each line in the csv file
                 for lines in csv_file:
                     # change suffix to jpg to match the instagram-filtered images
