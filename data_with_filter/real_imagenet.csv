@@ -1,3 +1,4 @@
+image,class,split
 ImageNet/ILSVRC/Data/CLS-LOC/test/ILSVRC2012_test_00052030.jpg,0,test
 ImageNet/ILSVRC/Data/CLS-LOC/test/ILSVRC2012_test_00091934.jpg,0,test
 ImageNet/ILSVRC/Data/CLS-LOC/test/ILSVRC2012_test_00084060.jpg,0,test
