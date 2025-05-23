@@ -96,7 +96,7 @@ For downloading the images of these evaluation CSVs, check the instruction [here
 
     So only 999 images from the RAISE-1k can be used.
 
-2. The OpenImageDataset is 3 images that are not used due to the image size:
+2. The OpenImageDataset has 3 images that are not used due to the image size:
     | Image Filename              | Resolution (Width × Height) |
     |-----------------------------|-----------------------------|
     | 9ddc8ddd7f3e49fe.jpg        | 3648 × 2736                 |
