@@ -15,10 +15,7 @@ from spai import data_utils
               type=click.Path(exists=True, file_okay=False, path_type=Path))
 @click.option("--coco_dir", required=True,
               type=click.Path(exists=True, file_okay=False, path_type=Path))
-# @click.option("--lsun_dir", required=False,
-#               type=click.Path(exists=True, file_okay=False, path_type=Path))
 @click.option("--real_coco_filename", type=str, default="real_coco.txt")
-# @click.option("--real_lsun_filename", type=str, default="real_lsun.txt")
 @click.option("-o", "--output_csv",
               type=click.Path(dir_okay=False, path_type=Path),
               required=True)
@@ -31,9 +28,7 @@ def main(
     train_dir: Optional[Path],
     val_dir: Optional[Path],
     coco_dir: Path,
-    # lsun_dir: Path,
     real_coco_filename: str,
-    # real_lsun_filename: str,
     output_csv: Path,
     csv_root_dir: Optional[Path],
     output_csv_delimiter: str,
@@ -46,7 +41,6 @@ def main(
     entries: list[dict[str, Any]] = []
 
     coco_copy_dir_name: str = "real_coco"
-    # lsun_copy_dir_name: str = "real_lsun"
 
     split_dirs: list[Path] = []
     split_labels: list[str] = []
@@ -66,7 +60,6 @@ def main(
             path_parts: list[str] = p.parts
             if (p.is_file() and p.suffix == ".png"
                     and coco_copy_dir_name not in path_parts):
-                    # and lsun_copy_dir_name not in path_parts):
                 filter_found: bool = False if len(filter) > 0 else True
                 for f in filter:
                     if f in path_parts:
@@ -92,16 +85,6 @@ def main(
                 "split": s_label
             })
 
-        # # Make entries for LSUN real data.
-        # real_lsun_file: Path = s_dir / real_lsun_filename
-        # lsun_samples: list[Path] = find_lsun_samples(real_lsun_file, lsun_dir, s_label)
-        # for p in lsun_samples:
-        #     entries.append({
-        #         "image": str(p.relative_to(csv_root_dir)),
-        #         "class": 0,
-        #         "split": s_label
-        #     })
-
     if samples_num is not None:
         entries = random.sample(entries, samples_num)
 
@@ -120,23 +103,6 @@ def find_coco_samples(coco_real_file: Path, coco_dir: Path, split: str) -> list[
         if not f.exists():
             continue
     return coco_files
-
-
-# def find_lsun_samples(lsun_real_file: Path, cnndetect_dir: Path, split: str) -> list[Path]:
-#     assert split in ["train", "val"]
-#     print("Loading LSUN image paths.")
-#     with lsun_real_file.open() as f:
-#         lines: list[str] = [l.rstrip() for l in f]
-#     lsun_files: list[Path] = []
-#     for l in lines:
-#         l_parts: list[str] = l.split("_")
-#         category: str = l_parts[0]
-#         filename: str = l_parts[1]
-#         lsun_files.append(cnndetect_dir/"train"/category/"0_real"/ filename)
-#     print("Loading of LSUN image paths completed.")
-#     for f in tqdm(lsun_files, "Checking existence of LSUN images", unit="image"):
-#         assert f.exists()
-#     return lsun_files
 
 
 if __name__ == "__main__":
