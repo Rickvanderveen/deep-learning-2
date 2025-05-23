@@ -85,14 +85,26 @@ files of the evaluation set, included under the `data` directory, can be used as
 For downloading the images of these evaluation CSVs, check the instruction [here](docs/data.md).
 
 ### ⚠️ Dataset problem
-The RAISE-1k dataset has 1 incomplete image: `r0bf7f938t.tif`. It is possible to
-download the image, but opening the image or loading the image via the code results
-in errors and/or crashes your code. The error is an TIFFFillStrip error and will look
-like the following:
-```bash
-TIFFFillStrip: Read error on strip 4899; got 18446744073705070833 bytes, expected 4396.
-```
-So only 999 images from the RAISE-1k can be used
+1. The RAISE-1k dataset has 1 incomplete image: `r0bf7f938t.tif`. It is possible to  
+    download the image, but opening the image or loading the image via the code results  
+    in errors and/or crashes your code. The error is a TIFFFillStrip error and will look  
+    like the following:
+
+    ```bash
+    TIFFFillStrip: Read error on strip 4899; got 18446744073705070833 bytes, expected 4396.
+    ```
+
+    So only 999 images from the RAISE-1k can be used.
+
+2. The OpenImageDataset is 3 images that are not used due to the image size:
+    | Image Filename              | Resolution (Width × Height) |
+    |-----------------------------|-----------------------------|
+    | 9ddc8ddd7f3e49fe.jpg        | 3648 × 2736                 |
+    | 7522235e1ad432ae.jpg        | 8000 × 5350                 |
+    | 339eba02c239ffcc.jpg        | 6000 × 4000                 |
+
+    This means that 997 images of the OpenImageDataset are used
+
 
 ## :triangular_ruler: Architecture Overview
 
