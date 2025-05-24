@@ -171,7 +171,9 @@ def batch_process_images(input_csv):
             if lines[0].endswith(supported_formats):
                 # get the path where the modified images should be written to
                 input_path = Path('/gpfs/home1/scur2688/deep-learning-2/data/' + lines[0])
+                print('input:', input_path)
                 path_images = Path('./data_with_memes/' + lines[0])
+                print('output:',path_images)
                 path_parents = path_images.parent
                 # if the parent directories did not exist before, make new (nested) directories
                 if not path_parents.exists():
