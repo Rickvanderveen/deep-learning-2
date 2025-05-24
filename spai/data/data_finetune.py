@@ -390,6 +390,8 @@ def build_loader_test(
     logger,
     split: str = "test",
     dummy_csv_dir: Optional[pathlib.Path] = None,
+    data_loader_generator = None,
+    shuffle_data_loader: bool = False,
 ) -> tuple[list[str], list[torch.utils.data.Dataset], list[torch.utils.data.DataLoader]]:
     # Obtain the root directory for each test input (either a CSV file or a directory).
     input_root_paths: list[pathlib.Path]
@@ -460,7 +462,9 @@ def build_loader_test(
             prefetch_factor=config.DATA.TEST_PREFETCH_FACTOR or config.DATA.PREFETCH_FACTOR,
             collate_fn=(torch.utils.data.default_collate
                         if not config.MODEL.RESOLUTION_MODE == "arbitrary"
-                        else image_enlisting_collate_fn)
+                        else image_enlisting_collate_fn),
+            generator=data_loader_generator,
+            shuffle=shuffle_data_loader,
         )
         for dataset in test_datasets
     ]

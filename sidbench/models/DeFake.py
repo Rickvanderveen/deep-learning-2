@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch
 
 import torch.nn.functional as F
-import networks.clip as clip
+import sidbench.networks.clip as clip
 
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size_list, num_classes):

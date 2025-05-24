@@ -1,7 +1,7 @@
 import torch.nn as nn 
 import torch
 
-from networks.resnet import resnet50
+from sidbench.networks.resnet import resnet50
 
 
 class FreqDetect(nn.Module):

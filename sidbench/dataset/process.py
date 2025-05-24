@@ -12,9 +12,9 @@ import torchvision.transforms as transforms
 import torchvision.transforms.functional as F
 
 from random import choice
-from models import VALID_MODELS
 
-from utils.util import setup_device
+from sidbench.models import VALID_MODELS
+from sidbench.utils.util import setup_device
 
 MEAN = { 
     "imagenet":[0.485, 0.456, 0.406], 

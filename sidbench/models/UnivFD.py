@@ -1,5 +1,5 @@
 
-from networks.clip import clip 
+from sidbench.networks.clip import clip 
 
 import torch.nn as nn 
 import torch

@@ -8,8 +8,8 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-from networks.vit import VisionTransformer, interpolate_pos_embed
-from networks.med import BertConfig, BertModel, BertLMHeadModel
+from sidbench.networks.vit import VisionTransformer, interpolate_pos_embed
+from sidbench.networks.med import BertConfig, BertModel, BertLMHeadModel
 from transformers import BertTokenizer
 
 import torch

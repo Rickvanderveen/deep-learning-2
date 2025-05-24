@@ -1,22 +1,22 @@
-from models.CNNDetect import CNNDetect
-from models.FreqDetect import FreqDetect
-from models.RPTC import Net as RPTCNet
-from models.PSM import PSM
-from models.UnivFD import UnivFD
-from models.GramNet import GramNet
-from models.Rine import RineModel
-from models.LGrad import LGrad
-from models.DIMD import DIMD
-from models.NPR import NPR
-from models.Dire import Dire
-from models.DeFake import DeFake
+from sidbench.models.CNNDetect import CNNDetect
+from sidbench.models.FreqDetect import FreqDetect
+from sidbench.models.RPTC import Net as RPTCNet
+from sidbench.models.PSM import PSM
+from sidbench.models.UnivFD import UnivFD
+from sidbench.models.GramNet import GramNet
+from sidbench.models.Rine import RineModel
+from sidbench.models.LGrad import LGrad
+from sidbench.models.DIMD import DIMD
+from sidbench.models.NPR import NPR
+from sidbench.models.Dire import Dire
+from sidbench.models.DeFake import DeFake
 
 import re
 import torch
 
-from networks.blip.blip import blip_decoder
-from preprocessing.lgrad.models import build_model
-from utils.util import setup_device
+from sidbench.networks.blip.blip import blip_decoder
+from sidbench.preprocessing.lgrad.models import build_model
+from sidbench.utils.util import setup_device
 
 
 VALID_MODELS = ['CNNDetect', 'FreqDetect', 'Fusing', 'GramNet', 'LGrad', 'UnivFD', 'RPTC', 'Rine', 'DIMD', 'NPR', 'Dire', 'DeFake']

@@ -1,7 +1,7 @@
 import torch.nn as nn 
 import torch
 
-from networks.resnet_npr import resnet50
+from sidbench.networks.resnet_npr import resnet50
 
 
 class NPR(nn.Module):

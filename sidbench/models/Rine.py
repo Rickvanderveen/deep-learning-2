@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from networks.clip import clip 
+from sidbench.networks.clip import clip 
 
 
 class Hook:
@@ -85,6 +85,19 @@ class RineModel(nn.Module):
         p = self.head(z)
 
         return p, z
+
+    def get_embedding(self, x):
+        with torch.no_grad():
+            self.clip.encode_image(x)
+            g = torch.stack([h.output for h in self.hooks], dim=2)[0, :, :, :]
+
+            g = self.proj1(g.float())
+
+            z = torch.softmax(self.alpha, dim=1) * g
+            z = torch.sum(z, dim=1)
+            z = self.proj2(z)
+
+        return z
 
     def predict(self, img):
         with torch.no_grad():

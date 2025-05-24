@@ -1,7 +1,7 @@
 import torch.nn as nn 
 import torch
 
-from networks.resnet_gram import resnet18
+from sidbench.networks.resnet_gram import resnet18
 
 
 class GramNet(nn.Module):

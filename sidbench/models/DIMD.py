@@ -1,7 +1,7 @@
 import torch.nn as nn 
 import torch
 
-from networks.resnet50nodown import resnet50nodown
+from sidbench.networks.resnet50nodown import resnet50nodown
 
 
 class DIMD(nn.Module):

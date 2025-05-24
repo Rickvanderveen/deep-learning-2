@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from networks.resnet_psm import resnet50
+from sidbench.networks.resnet_psm import resnet50
 import torch.nn.functional as F
 
 

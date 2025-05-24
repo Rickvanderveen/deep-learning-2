@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from models.srm_filter_kernel import all_normalized_hpf_list
+from sidbench.models.srm_filter_kernel import all_normalized_hpf_list
 
 
 class TLU(nn.Module):
@@ -145,6 +145,36 @@ class Net(nn.Module):
         out = self.fc2(output)
 
         return out
+    
+    def get_embedding(self, input):
+        with torch.no_grad():
+            img_poor = input[:, 0, :, :, :]
+            img_rich = input[:, 1, :, :, :]
+
+            a, b, c, d = img_poor.shape
+
+            img_poor = img_poor.reshape(-1, 1, c, d)
+            img_poor = self.group1(img_poor)
+            img_poor = img_poor.reshape(a, -1, c, d)
+            img_poor = self.group1_b(img_poor)
+
+            img_rich = img_rich.reshape(-1, 1, c, d)
+            img_rich = self.group1(img_rich)
+            img_rich = img_rich.reshape(a, -1, c, d)
+            img_rich = self.group1_b(img_rich)
+
+            res = img_poor - img_rich
+
+            output = self.group2(res)
+            output = self.group3(output)
+            output = self.group4(output)
+            output = self.group5(output)
+
+            output = self.advpool(output)
+            output = output.view(output.size(0), -1)
+
+            return output
+
 
     def load_weights(self, ckpt):
         self.apply(initWeights)

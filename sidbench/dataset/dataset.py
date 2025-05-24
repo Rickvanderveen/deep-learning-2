@@ -1,10 +1,12 @@
 import os
 
-from io import BytesIO 
+from io import BytesIO
+from pathlib import Path 
 from PIL import Image 
 from PIL import ImageFile
 import numpy as np 
 
+import pandas as pd
 from scipy.ndimage import gaussian_filter
 
 import torch
@@ -134,18 +136,24 @@ class SyntheticImagesDataset(Dataset):
 
     
 class RecursiveImageDataset(Dataset):
-    def __init__(self, data_path, opt, process_fn):
+    def __init__(self, data_path: str, opt, process_fn, root_dir=None):
         """
         Args:
-            data_path (string): Directory with all the images, including subdirectories.
+            data_path (string): Directory with all the images, including subdirectories or a CSV file.
             transform (callable, optional): Optional transform to be applied on a sample.
         """
         self.data_path = data_path
+        self.root_dir = root_dir
         self.process_fn = process_fn
         self.opt = opt
 
         self.image_paths = []
-        self._load_image_paths(data_path)
+        
+        self.dataframe = None
+        if data_path.endswith(".csv"):
+            self.dataframe = pd.read_csv(data_path)
+        else:
+            self._load_image_paths(data_path)
 
     def _load_image_paths(self, dir_path, exts=("png", "jpg", "jpeg", "bmp")):
         """Recursively load all image paths from the directory."""
@@ -155,13 +163,27 @@ class RecursiveImageDataset(Dataset):
                     self.image_paths.append(os.path.join(root, filename))
 
     def __len__(self):
-        return len(self.image_paths)
+        if self.dataframe is None:
+            return len(self.image_paths)
+        return len(self.dataframe)
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
+        
+        label = 0
 
-        img_path = self.image_paths[idx]
+        if self.dataframe is None:
+            img_path = self.image_paths[idx]
+        else:
+            img_path = self.dataframe.iloc[idx, 0]
+            label = self.dataframe.iloc[idx, 1]
+
+        if self.root_dir is not None:
+            img_path = str(Path(self.root_dir) / Path(img_path))
+
         image = Image.open(img_path).convert('RGB')
 
-        return self.process_fn(image, self.opt, 0, img_path)
+        # return self.process_fn(image, self.opt, 0, img_path)
+        return self.process_fn(image, self.opt), label, img_path
+
