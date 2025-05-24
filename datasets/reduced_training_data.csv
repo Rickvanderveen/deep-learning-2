@@ -25780,7 +25780,6 @@ COCO/train2017/000000051799.jpg,0,train
 COCO/train2017/000000260107.jpg,0,train
 COCO/train2017/000000138131.jpg,0,train
 COCO/train2017/000000516344.jpg,0,train
-COCO/train2017/000000539879.jpg,0,train
 COCO/train2017/000000050648.jpg,0,train
 COCO/train2017/000000041678.jpg,0,train
 COCO/train2017/000000081676.jpg,0,train
@@ -32395,6 +32394,7 @@ COCO/train2017/000000419224.jpg,0,train
 COCO/train2017/000000151988.jpg,0,train
 COCO/train2017/000000066255.jpg,0,train
 COCO/train2017/000000398153.jpg,0,train
+COCO/train2017/000000269947.jpg,0,train
 latent_diffusion_trainingset/valid/latent_diffusion_text2img_set1/latent-diffusion_text2img_cocotrain2017_697770.png,1,val
 latent_diffusion_trainingset/valid/latent_diffusion_text2img_set1/latent-diffusion_text2img_cocotrain2017_281629.png,1,val
 latent_diffusion_trainingset/valid/latent_diffusion_text2img_set1/latent-diffusion_text2img_cocotrain2017_20332.png,1,val
