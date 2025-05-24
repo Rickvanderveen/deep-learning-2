@@ -80,7 +80,9 @@ def forward_spai(images, target, model, dataset_idx, config):
 def parse_args():
     parser = argparse.ArgumentParser(description="Triple model training")
     parser.add_argument("--dataPath", type=str, help="data folder path")
-    parser.add_argument("--root_dir", type=str, default=None, help="root dir of the data")
+    parser.add_argument(
+        "--root_dir", type=str, default=None, help="root dir of the data"
+    )
     parser.add_argument("--output_dir", type=str, default="./triple_model_results")
     parser.add_argument("--numThreads", type=int, default=1)
     parser.add_argument("--batchSize", type=int, default=2)
@@ -90,9 +92,7 @@ def parse_args():
     )
     parser.add_argument("--cropSize", type=int, default=224, help="crop to this size")
 
-    parser.add_argument("--isTrain", default=False, type=bool, help="train or test")
-
-    # RPTC
+    # Specific to RPTC
     parser.add_argument("--patchNum", type=int, default=3)
 
     args, _ = parser.parse_known_args()
@@ -117,10 +117,16 @@ if __name__ == "__main__":
 
     # Setup dataset
     rine_dataset = RecursiveImageDataset(
-        data_path=opt.dataPath, opt=opt, process_fn=clip_processing, root_dir=str(root_dir)
+        data_path=opt.dataPath,
+        opt=opt,
+        process_fn=clip_processing,
+        root_dir=str(root_dir),
     )
     patchcraft_dataset = RecursiveImageDataset(
-        data_path=opt.dataPath, opt=opt, process_fn=rptc_processing, root_dir=str(root_dir)
+        data_path=opt.dataPath,
+        opt=opt,
+        process_fn=rptc_processing,
+        root_dir=str(root_dir),
     )
 
     # Setup dataloader
@@ -178,10 +184,11 @@ if __name__ == "__main__":
     _test_datasets_names, _test_datasets, spai_test_loaders = build_loader_test_spai(
         spai_config,
         logger,
-        split="test",
+        split="train",
         dummy_csv_dir=Path(opt.output_dir),
         data_loader_generator=torch.Generator().manual_seed(10),
         shuffle_data_loader=True,
+        alternative_data_split="test",
     )
     spai_loader = spai_test_loaders[0]
 
@@ -195,33 +202,12 @@ if __name__ == "__main__":
         spai_config, spai, logger, checkpoint_path=model_ckpt, verbose=False
     )
 
-    # Init classification head
-    rine_embedding_size = 1024
-    patchcraft_embedding_size = 32
-    spai_embedding_size = 1096
-
-    total_embedding_size = (
-        rine_embedding_size + patchcraft_embedding_size + spai_embedding_size
-    )
-
-    classification_head = ClassificationHead(
-        input_dim=total_embedding_size, num_classes=1
-    )
-    classification_head.to(device)
-
-    # Setup loss
-    critertion = torch.nn.BCELoss()
-    # Init optimizer
-    optimizer = torch.optim.Adam(classification_head.parameters(), lr=1e-5)
-
     data = []
 
     with tqdm(total=len(rine_dataset)) as pbar:
         for rine_batch, patchcraft_batch, spai_batch in zip(
             rine_loader, patchcraft_loader, spai_loader
         ):
-            optimizer.zero_grad()
-
             rine_img, rine_label, rine_img_path = rine_batch
             patchcraft_img, patchcraft_label, patchcraft_img_path = patchcraft_batch
             spai_img, spai_target, spai_dataset_idx = spai_batch
@@ -243,15 +229,12 @@ if __name__ == "__main__":
                     (rine_embeddings, patchcraft_embeddings, spai_embeddings), dim=1
                 ).cpu()
 
-            for embedding, label, path in zip(concat_embedding, rine_label, rine_img_path):
-
-                data.append({
-                    'embedding': embedding,
-                    'label': label,
-                    'path': path
-                })   
+            for embedding, label, path in zip(
+                concat_embedding, rine_label, rine_img_path
+            ):
+                data.append({"embedding": embedding, "label": label, "path": path})
 
             pbar.update(rine_img.shape[0])
 
     with open("embeddings.pkl", "wb") as f:
-        pickle.dump(data, f)        
+        pickle.dump(data, f)
