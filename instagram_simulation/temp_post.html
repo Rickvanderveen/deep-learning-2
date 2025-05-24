@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #eee;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      font-family: 'Proxima Nova', sans-serif;
+    }
+
+    .post-container {
+      width: 375px;
+      background: #fff;
+      border: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #000;
+      height: 20px;
+    }
+
+    .status-time {
+      font-weight: bold;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-icons img {
+      height: 12px;
+      width: auto;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .top-bar-left img {
+      width: 16px;
+      height: 16px;
+      margin-left: 5px;
+    }
+
+    .top-bar-right {
+      display: flex;
+      gap: 16px;
+    }
+
+    .top-bar-right img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .avatar {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .username {
+      font-weight: bold;
+    }
+
+    .image-container img {
+      width: 100%;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 10px 0 10px;
+    }
+
+    .left-icons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .icon img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .icon-count {
+      font-size: 14px;
+      color: #000;
+      user-select: none;
+    }
+
+    .footer {
+      padding: 0 10px 10px 10px;
+    }
+
+    .caption,
+    .timestamp {
+      margin: 5px 0;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .bottom-nav {
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 50px;
+      padding: 0 10px;
+    }
+
+    .bottom-nav .nav-icon img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .bottom-nav .nav-avatar img {
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="post-container">
+
+    <div class="status-bar">
+      <div class="status-time">17:38</div>
+      <div class="status-icons">
+        <img src="assets/icons/cellular-1.svg" alt="Signal">
+        <img src="assets/icons/network-3g.svg" alt="4G">
+        <img src="assets/icons/battery-empty.svg" alt="Battery">
+      </div>
+    </div>
+
+    <div class="top-bar">
+      <div class="top-bar-left">
+        For You
+        <img src="assets/icons/down-arrow.svg" alt="Dropdown">
+      </div>
+      <div class="top-bar-right">
+        <img src="assets/icons/heart.svg" alt="Likes">
+        <img src="assets/icons/send-message.svg" alt="DM">
+      </div>
+    </div>
+
+    <div class="header">
+      <img class="avatar" src="C:\Users\david\Documents\Pythonprojects\instagram simulation\assets\avatars\8KT_0OX6bLLLLS382lhRY.png" />
+      <div class="username">Regono Sazugoqo</div>
+    </div>
+
+    <div class="image-container">
+      <img src="C:\Users\david\Documents\Pythonprojects\instagram simulation\assets\imgs\VcR5iINXAvD-_hE5_um7q.png" />
+    </div>
+
+    <div class="action-bar">
+      <div class="left-icons">
+        <div class="icon">
+          <img src="assets/icons/heart.svg" alt="Like">
+          <span class="icon-count">175.0K</span>
+        </div>
+        <div class="icon">
+          <img src="assets/icons/chatbubble.svg" alt="Comment">
+          <span class="icon-count">769.6K</span>
+        </div>
+        <div class="icon">
+          <img src="assets/icons/send-message.svg" alt="Share">
+          <span class="icon-count">708.7K</span>
+        </div>
+      </div>
+      <div class="right-icon icon">
+        <img src="assets/icons/save.svg" alt="Save">
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="caption">
+        <b>Regono Sazugoqo</b> ffefgbhp znj <span class="timestamp" id="morespan" style="display: none;">... more</span>
+      </div>
+      <div class="timestamp">53 weeks ago</div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-icon">
+        <img src="assets/icons/home.svg" alt="Home">
+      </div>
+      <div class="nav-icon">
+        <img src="assets/icons/search.svg" alt="Search">
+      </div>
+      <div class="nav-icon">
+        <img src="assets/icons/plus-square.svg" alt="New Post">
+      </div>
+      <div class="nav-icon">
+        <img src="assets/icons/movie.svg" alt="Media">
+      </div>
+      <div class="nav-avatar">
+        <img src="C:\Users\david\Documents\Pythonprojects\instagram simulation\assets\avatars\8KT_0OX6bLLLLS382lhRY.png" alt="Profile">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
