@@ -99,10 +99,11 @@ def find_coco_samples(coco_real_file: Path, coco_dir: Path, split: str) -> list[
         lines: list[str] = [l.rstrip() for l in f]
     coco_files: list[Path] = [coco_dir / f"train2017" / l for l in lines]
     print("Loading of COCO image paths completed.")
-    for f in tqdm(coco_files, "Checking existence of COCO images", unit="image"):
-        if not f.exists():
-            continue
-    return coco_files
+    # for f in tqdm(coco_files, "Checking existence of COCO images", unit="image"):
+    #     if not f.exists():
+    #         continue
+    existing_coco_files = [f for f in coco_files if f.exists()]
+    return existing_coco_files
 
 
 if __name__ == "__main__":
