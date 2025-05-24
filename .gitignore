@@ -142,4 +142,4 @@ data/**
 
 datasets/COCO
 datasets/latent_diffusion_trainingset
-datasets/ldm_train_val.csv
+# datasets/ldm_train_val.csv
