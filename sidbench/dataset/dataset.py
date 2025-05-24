@@ -136,7 +136,7 @@ class SyntheticImagesDataset(Dataset):
 
     
 class RecursiveImageDataset(Dataset):
-    def __init__(self, data_path: str, opt, process_fn, root_dir=None):
+    def __init__(self, data_path: str, opt, process_fn, root_dir=None, data_split=None):
         """
         Args:
             data_path (string): Directory with all the images, including subdirectories or a CSV file.
@@ -152,6 +152,8 @@ class RecursiveImageDataset(Dataset):
         self.dataframe = None
         if data_path.endswith(".csv"):
             self.dataframe = pd.read_csv(data_path)
+            if data_split is not None:
+                self.dataframe = self.dataframe[self.dataframe["split"] == data_split]
         else:
             self._load_image_paths(data_path)
 

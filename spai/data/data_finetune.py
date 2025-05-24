@@ -425,6 +425,15 @@ def build_loader_test(
 ) -> tuple[
     list[str], list[torch.utils.data.Dataset], list[torch.utils.data.DataLoader]
 ]:
+    """
+    Create the data loader(s).
+
+    Args:
+        split (str): The name of the split. This determines what data is loaded and
+                     what augmentations are applied (if not overwritten by `alternative_data_split`)
+        alternative_data_split (str, optional): Overides the split method. The data that is loaded
+                                      is still based on the `split` argument
+    """
     # Obtain the root directory for each test input (either a CSV file or a directory).
     input_root_paths: list[pathlib.Path]
     if len(config.DATA.TEST_DATA_CSV_ROOT) > 1:
@@ -534,6 +543,9 @@ def build_dataset(
     if alternative_data_split not in ["train", "val", "test"]:
         raise ValueError(f"Unsupported alternative split: {split_name}")
 
+    # Save the original split name. This is only for when the split name is replaced
+    # by the `alternative_data_split`.
+    original_split = split_name
     split_name = (
         split_name if alternative_data_split is None else alternative_data_split
     )
@@ -621,7 +633,7 @@ def build_dataset(
         dataset = CSVDataset(
             csv_path,
             csv_root_dir,
-            split=split_name,
+            split=original_split,
             transform=transform,
             lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH)
             if config.DATA.LMDB_PATH

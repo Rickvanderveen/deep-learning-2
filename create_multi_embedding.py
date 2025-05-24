@@ -13,7 +13,6 @@ from spai.models import build_cls_model
 from tqdm import tqdm
 import torch
 
-from spai.models.sid import ClassificationHead
 from spai.utils import (
     find_pretrained_checkpoints,
     load_pretrained as load_pretrained_spai,
@@ -51,7 +50,7 @@ def forward_spai(images, target, model, dataset_idx, config):
         )
     elif isinstance(images, list):
         output = model.get_embedding(images, config.MODEL.FEATURE_EXTRACTION_BATCH)
-        attention_masks = [None] * len(images)
+        _attention_masks = [None] * len(images)
     else:
         if images.size(dim=1) > 1:
             predictions: list[torch.Tensor] = [
@@ -72,7 +71,7 @@ def forward_spai(images, target, model, dataset_idx, config):
         else:
             images = images.squeeze(dim=1)  # Remove views dimension.
             output = model.get_embedding(images)
-        attention_masks = [None] * images.size(0)
+        _attention_masks = [None] * images.size(0)
 
     return output
 
@@ -80,6 +79,15 @@ def forward_spai(images, target, model, dataset_idx, config):
 def parse_args():
     parser = argparse.ArgumentParser(description="Triple model training")
     parser.add_argument("--dataPath", type=str, help="data folder path")
+    parser.add_argument("--data_split", type=str)
+    parser.add_argument(
+        "--embedding_file",
+        "-o",
+        type=str,
+        default="embeddings.pkl",
+        help="The path of the output embeddings file",
+    )
+
     parser.add_argument(
         "--root_dir", type=str, default=None, help="root dir of the data"
     )
@@ -91,6 +99,13 @@ def parse_args():
         "--loadSize", type=int, default=None, help="scale images to this size"
     )
     parser.add_argument("--cropSize", type=int, default=224, help="crop to this size")
+
+    parser.add_argument(
+        "--isTrain",
+        default=False,
+        type=bool,
+        help="train or test for rine and patchcraft",
+    )
 
     # Specific to RPTC
     parser.add_argument("--patchNum", type=int, default=3)
@@ -107,6 +122,20 @@ if __name__ == "__main__":
 
     opt = parse_args()
 
+    # Check the data split input argument
+    valid_data_splits = ["train", "val", "test"]
+    if opt.data_split not in valid_data_splits:
+        raise ValueError(
+            f"Invalid data_split: '{opt.data_split}'. Expected one of {valid_data_splits}."
+        )
+
+    # Check if the output embedding file is a pickle file
+    if Path(opt.embedding_file).suffix != ".pkl":
+        raise ValueError(
+            f"Invalid file extension for embedding_file: '{opt.embedding_file}'."
+            "Expected a '.pkl' file."
+        )
+
     device = torch.device("cuda")
     seed = 10
 
@@ -121,12 +150,14 @@ if __name__ == "__main__":
         opt=opt,
         process_fn=clip_processing,
         root_dir=str(root_dir),
+        data_split=opt.data_split,
     )
     patchcraft_dataset = RecursiveImageDataset(
         data_path=opt.dataPath,
         opt=opt,
         process_fn=rptc_processing,
         root_dir=str(root_dir),
+        data_split=opt.data_split,
     )
 
     # Setup dataloader
@@ -181,16 +212,28 @@ if __name__ == "__main__":
     )
 
     # Setup spai dataset and dataloader
-    _test_datasets_names, _test_datasets, spai_test_loaders = build_loader_test_spai(
-        spai_config,
-        logger,
-        split="train",
-        dummy_csv_dir=Path(opt.output_dir),
-        data_loader_generator=torch.Generator().manual_seed(10),
-        shuffle_data_loader=True,
-        alternative_data_split="test",
+    _test_datasets_names, spai_test_datasets, spai_test_loaders = (
+        build_loader_test_spai(
+            spai_config,
+            logger,
+            split=opt.data_split,
+            dummy_csv_dir=Path(opt.output_dir),
+            data_loader_generator=torch.Generator().manual_seed(10),
+            shuffle_data_loader=True,
+            alternative_data_split="test",
+        )
     )
+    spai_dataset = spai_test_datasets[0]
     spai_loader = spai_test_loaders[0]
+
+    # Check if all datasets loaded the same amount of images
+    rine_len = len(rine_dataset)
+    patchcraft_len = len(patchcraft_dataset)
+    spai_len = len(spai_dataset)
+    assert rine_len == patchcraft_len == spai_len, (
+        f"Dataset size mismatch:\n"
+        f"RINE: {rine_len}, PatchCraft: {patchcraft_len}, SPAI: {spai_len}"
+    )
 
     # Load spai model
     spai = build_cls_model(spai_config)
@@ -236,5 +279,5 @@ if __name__ == "__main__":
 
             pbar.update(rine_img.shape[0])
 
-    with open("embeddings.pkl", "wb") as f:
+    with open(opt.embedding_file, "wb") as f:
         pickle.dump(data, f)
