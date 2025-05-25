@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu_mig
+#SBATCH --gpus=1
+#SBATCH --job-name=train_combi_classifier
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=9
+#SBATCH --time=12:00:00
+
+#SBATCH --output=combi_model_out/sd14-%A.out
+module purge
+
+# Your job starts in the directory where you call sbatch
+cd $HOME/deep-learning-2/combi-model/
+
+# Run your code
+srun uv run python train.py

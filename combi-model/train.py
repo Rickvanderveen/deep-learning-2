@@ -14,8 +14,8 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 def parse_args():
     parser = argparse.ArgumentParser(description="Bert variant finetuning")
     parser.add_argument("--seed", type=int, default=1234)
-    parser.add_argument("--train_data_path", type=str, default="data/training_data/openimages_test_embeddings.pkl")
-    parser.add_argument("--val_data_path", type=str, default="data/training_data/openimages_test_embeddings.pkl")
+    parser.add_argument("--train_data_path", type=str, default="data/training_data/train_embeddings.pkl")
+    parser.add_argument("--val_data_path", type=str, default="data/training_data/val_embeddings.pkl")
     parser.add_argument("--model_name", type=str, default="Multi-Model-MLP-Classifier")
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--batch_size", type=int, default=16)
