@@ -1,0 +1,4 @@
+hidden_dim: 128
+input_dim: 2152
+lr: 0.001
+num_classes: 1000

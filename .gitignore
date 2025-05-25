@@ -145,3 +145,6 @@ datasets/latent_diffusion_trainingset
 # datasets/ldm_train_val.csv
 
 embeddings/
+/combi-model/data
+/combi-model/data
+/combi-model/checkpoints
