@@ -12,17 +12,15 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Bert variant finetuning")
+    parser = argparse.ArgumentParser(description="Train classifier for combi model")
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--train_data_path", type=str, default="data/training_data/train_embeddings.pkl")
-    parser.add_argument("--val_data_path", type=str, default="data/training_data/val_embeddings.pkl")
+    parser.add_argument("--val_data_path", type=str, default="data/val_data/val_embeddings.pkl")
     parser.add_argument("--model_name", type=str, default="Multi-Model-MLP-Classifier")
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--weight_decay", type=float, default=1e-4)
-    parser.add_argument("--output_dir", type=str, default="./results")
-    parser.add_argument("--logging_dir", type=str, default="./logs")
 
     args, _ = parser.parse_known_args()
 

@@ -1,0 +1,6 @@
+dropout: 0.5
+input_dim: 2152
+lr: 0.001
+mlp_ratio: 4
+num_classes: 1000
+weight_decay: 0.0
