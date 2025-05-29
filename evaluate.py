@@ -1,3 +1,4 @@
+import argparse
 import csv
 from pathlib import Path
 
@@ -95,5 +96,48 @@ def compute_average(fake: Path, real: list[Path]):
     print("Average AUC".rjust(longest_name) + f": {avg_auc}")
 
 
+def compute_auc(fake_dir: Path, real_dir: Path):
+    fake_dataset_paths = list(fake_dir.glob("*.csv"))
+    real_dataset_paths = list(real_dir.glob("*.csv"))
+
+    auc_scores = []
+
+    for fake_dataset_path in fake_dataset_paths:
+        fake_predictions, fake_labels = csv_to_tensor(fake_dataset_path)
+
+        dataset_auc_scores = []
+        for real_dataset_path in real_dataset_paths:
+            real_predictions, real_labels = csv_to_tensor(real_dataset_path)
+
+            auc = binary_auroc(
+                torch.cat((fake_predictions, real_predictions)),
+                torch.cat((fake_labels, real_labels)),
+            ).item()
+            dataset_auc_scores.append(auc)
+
+        avg_dataset_auc = sum(dataset_auc_scores) / len(dataset_auc_scores)
+        auc_scores.append(avg_dataset_auc)
+
+    longest_name = max(map(lambda path: len(path.stem), fake_dataset_paths))
+
+    print("Fake dataset | AUC")
+    for fake_dataset_path, auc_score in zip(fake_dataset_paths, auc_scores):
+        print(f"{fake_dataset_path.stem.rjust(longest_name)}: {auc_score}")
+    print()
+    average_auc = sum(auc_scores) / len(auc_scores)
+    print("Average AUC".rjust(longest_name) + f": {average_auc}")
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Evaluate predictions")
+    parser.add_argument("--fake_dir", type=Path)
+    parser.add_argument("--real_dir", type=Path)
+
+    args, _ = parser.parse_known_args()
+
+    return args
+
+
 if __name__ == "__main__":
-    cli()
+    params = parse_args()
+    compute_auc(params.fake_dir, params.real_dir)

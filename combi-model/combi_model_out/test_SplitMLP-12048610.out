@@ -1,0 +1,159 @@
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:01,  8.24it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 16.05it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 23.49it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 30.62it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 37.46it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 44.01it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 50.38it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 56.48it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 62.38it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 68.10it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 73.62it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 78.96it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 84.11it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 89.10it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 93.93it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 98.49it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 92.06it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc            0.9980000257492065
+        val_loss            0.00753173790872097
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.00753173790872097, 'val_acc': 0.9980000257492065}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:02,  7.02it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:01, 13.71it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 20.15it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 26.34it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 32.34it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 38.05it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 43.62it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 48.98it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 54.20it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 59.24it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 64.11it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 68.90it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 73.49it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 77.93it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 82.27it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 86.46it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 81.57it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc            0.9959999918937683
+        val_loss           0.020042361691594124
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.020042361691594124, 'val_acc': 0.9959999918937683}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:02,  7.01it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:01, 13.67it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 20.10it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 26.28it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 32.27it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 38.03it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 43.58it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 48.93it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 54.16it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 59.20it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 64.07it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 68.83it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 73.43it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 77.89it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 82.23it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 86.44it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 81.36it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc            0.9700000286102295
+        val_loss            0.11308569461107254
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.11308569461107254, 'val_acc': 0.9700000286102295}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:01,  7.59it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 14.78it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 21.67it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 28.30it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 34.68it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 40.80it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 46.72it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 52.41it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 57.90it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 63.24it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 68.40it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 73.37it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 78.26it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 82.97it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 87.57it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 91.95it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 86.51it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc                    1.0
+        val_loss          0.00032469414873048663
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.00032469414873048663, 'val_acc': 1.0}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:02,  7.25it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 14.13it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 20.76it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 27.14it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 33.30it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 39.22it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 44.93it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 50.43it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 55.80it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 60.96it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 65.95it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 70.79it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 75.53it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 80.07it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 84.49it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 88.80it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 83.67it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc             0.609000027179718
+        val_loss             1.165406346321106
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 1.165406346321106, 'val_acc': 0.609000027179718}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:01,  7.81it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 15.22it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 22.31it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 29.12it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 35.66it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 41.94it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 47.99it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 53.81it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 59.41it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 64.84it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 70.10it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 75.20it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 80.18it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 84.98it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 89.66it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 94.13it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 88.27it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc             0.996999979019165
+        val_loss           0.014060270972549915
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.014060270972549915, 'val_acc': 0.996999979019165}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:01,  7.60it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 14.81it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 21.71it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 28.35it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 34.74it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 40.88it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 46.80it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 52.49it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 58.02it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 63.32it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 68.50it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 73.47it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 78.30it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 82.97it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 87.48it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 91.86it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 86.24it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc                    1.0
+        val_loss           0.000303460139548406
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.000303460139548406, 'val_acc': 1.0}]
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset...
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:01,  7.86it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 15.32it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 22.47it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 29.32it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 35.91it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 42.21it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 48.28it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 54.11it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 59.77it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 65.21it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 70.47it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 75.56it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 80.54it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 85.35it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 90.04it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 94.53it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 88.61it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         val_acc           0.003000000026077032
+        val_loss             8.512360572814941
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 8.512360572814941, 'val_acc': 0.003000000026077032}]
+
+JOB STATISTICS
+==============
+Job ID: 12048610
+Cluster: snellius
+User/Group: scur2673/scur2673
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:01:02
+CPU Efficiency: 4.85% of 00:21:18 core-walltime
+Job Wall-clock time: 00:01:11
+Memory Utilized: 1.69 MB
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics can only be obtained after the job has ended as seff tool is based on the accounting database data.

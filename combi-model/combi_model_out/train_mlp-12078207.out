@@ -1,0 +1,38 @@
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+loading dataset...
+Traceback (most recent call last):
+  File "/gpfs/home1/scur2673/deep-learning-2/combi-model/train.py", line 109, in <module>
+    trainer.fit(model, train_loader, val_loader)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 962, in _run
+    _verify_loop_configurations(self)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/configuration_validator.py", line 36, in _verify_loop_configurations
+    __verify_train_val_loop_configuration(trainer, model)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/configuration_validator.py", line 84, in __verify_train_val_loop_configuration
+    raise NotImplementedError(
+NotImplementedError: Support for `validation_epoch_end` has been removed in v2.0.0. `MLPClassifier` implements this method. You can use the `on_validation_epoch_end` hook instead. To access outputs, save them in-memory as instance attributes. You can find migration examples in https://github.com/Lightning-AI/lightning/pull/16520.
+srun: error: gcn33: task 0: Exited with exit code 1
+srun: Terminating StepId=12078207.0
+
+JOB STATISTICS
+==============
+Job ID: 12078207
+Cluster: snellius
+User/Group: scur2673/scur2673
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:17:42 core-walltime
+Job Wall-clock time: 00:00:59
+Memory Utilized: 0.00 MB
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics can only be obtained after the job has ended as seff tool is based on the accounting database data.

@@ -1,5 +1,6 @@
-hidden_dim: 128
+dropout: 0.5
 input_dim: 2152
-lr: 5.0e-05
-num_classes: 1000
-weight_decay: 0.01
+lr: 1.0e-06
+mlp_ratio: 4
+num_classes: 1
+weight_decay: 0.0001

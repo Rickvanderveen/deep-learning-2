@@ -1,23 +1,32 @@
 #!/bin/bash
 
-#SBATCH --partition=gpu_mig
+#SBATCH --partition=gpu_a100
 #SBATCH --gpus=1
-#SBATCH --job-name=train_combi_classifier
+#SBATCH --job-name=test_combi_classifier
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=9
-#SBATCH --time=12:00:00
+#SBATCH --time=00:59:00
 
-#SBATCH --output=combi_model_out/sd14-%A.out
+#SBATCH --output=combi_model_out/test_SplitMLP-%A.out
 module purge
 
 # Your job starts in the directory where you call sbatch
 cd $HOME/deep-learning-2/combi-model/
 
+#CHECKPOINT_PATH="checkpoints/SplitMLP.ckpt"
+#OUTPUT_DIR="eval_splitmlp"
+
 # Run your code
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/coco_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/fodb_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/openimages_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/sdxl_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/firefly_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/imagenet_test_embeddings.pkl
-srun uv run python eval.py --checkpoint_path checkpoints/Multi-Model-MLP-Classifier.ckpt --eval_data_path data/test_data/sd14_test_embeddings.pkl
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/coco_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/fodb_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/openimages_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/sdxl_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/firefly_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/imagenet_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/sd14_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+#srun uv run python eval.py --checkpoint_path "$CHECKPOINT_PATH" --eval_data_path data/test_data/sd3_test_embeddings.pkl --output_dir "$OUTPUT_DIR"
+
+srun uv run python eval.py \
+  --checkpoint_path checkpoints/SplitMLP-v1.ckpt \
+  --eval_data_path data/test_data_modifications/screenshot \
+  --output_dir eval_splitmlp_screenshot

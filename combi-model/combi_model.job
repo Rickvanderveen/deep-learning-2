@@ -5,13 +5,17 @@
 #SBATCH --job-name=train_combi_classifier
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=9
-#SBATCH --time=12:00:00
+#SBATCH --time=00:50:00
 
-#SBATCH --output=combi_model_out/sd14-%A.out
+#SBATCH --output=combi_model_out/train_mlp-%A.out
 module purge
 
 # Your job starts in the directory where you call sbatch
 cd $HOME/deep-learning-2/combi-model/
 
 # Run your code
-srun uv run python train.py
+srun uv run python train.py \
+  --lr 3e-6 \
+  --batch_size 256 \
+  --epochs 50 \
+  --model_name SplitMLP
