@@ -148,8 +148,6 @@ datasets/latent_diffusion_trainingset
 
 embeddings/
 /combi-model/data
-/combi-model/data
-/combi-model/checkpoints
 
 data_with_filter/
 !data_with_filter/*.csv
