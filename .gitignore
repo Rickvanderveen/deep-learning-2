@@ -152,6 +152,6 @@ embeddings/
 data_with_filter/
 instagram_simulation/screenshot_simulation/
 meme-generatorV3/msc-dl2/data_with_memes/
-meme_inference/
-reduced_trainingset/
-ss_inference/
+# meme_inference/
+# reduced_trainingset/
+# ss_inference/
