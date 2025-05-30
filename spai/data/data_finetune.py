@@ -540,7 +540,8 @@ def build_dataset(
 ) -> tuple[Union[CSVDataset, CSVDatasetTriplet], int]:
     if split_name not in ["train", "val", "test"]:
         raise ValueError(f"Unsupported split: {split_name}")
-    if alternative_data_split not in ["train", "val", "test"]:
+
+    if alternative_data_split is not None and alternative_data_split not in ["train", "val", "test"]:
         raise ValueError(f"Unsupported alternative split: {split_name}")
 
     # Save the original split name. This is only for when the split name is replaced
