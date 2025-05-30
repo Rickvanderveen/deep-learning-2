@@ -18,7 +18,7 @@ def parse_args():
     parser.add_argument("--eval_data_path", type=str, required=True)
     parser.add_argument("--checkpoint_path", type=str, required=True)
     parser.add_argument("--batch_size", type=int, default=64)
-    parser.add_argument("--output_dir", type=str, default="./eval_splitmlp")
+    parser.add_argument("--output_dir", type=str) # no default to prevent accidentally overwriting
     args, _ = parser.parse_known_args()
     return args
 
@@ -48,10 +48,11 @@ def evaluate_dataset(eval_data_path: Path):
 
     os.makedirs(params.output_dir, exist_ok=True)
 
+    label = "fake" if y_sample == 1 else "real"
     prefix = eval_data_path.stem
     checkpoint_name = Path(params.checkpoint_path).stem
     results_path = os.path.join(
-        params.output_dir, f"{prefix}_{checkpoint_name}_eval_results.json"
+        params.output_dir, f"{label}_{prefix}_{checkpoint_name}_eval_results.json"
     )
 
     with open(results_path, "w") as f:
@@ -59,7 +60,7 @@ def evaluate_dataset(eval_data_path: Path):
 
     if model.eval_df is not None:
         results_path = os.path.join(
-            params.output_dir, f"{prefix}_prediction_results.csv"
+            params.output_dir, f"{label}_{prefix}_{checkpoint_name}_prediction_results.csv"
         )
         model.eval_df.to_csv(results_path, index=False)
 
