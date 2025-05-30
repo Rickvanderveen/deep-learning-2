@@ -139,3 +139,13 @@ data/**
 !data/*.csv
 !data/check_data.py
 !data/download_data.py
+
+datasets/COCO
+datasets/latent_diffusion_trainingset
+# datasets/ldm_train_val.csv
+data_with_filter/
+instagram_simulation/screenshot_simulation/
+meme-generatorV3/msc-dl2/data_with_memes/
+meme_inference/
+reduced_trainingset/
+ss_inference/
