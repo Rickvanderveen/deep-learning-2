@@ -137,10 +137,10 @@ pretrains/
 
 data/**
 !data/*.csv
-!data/check_data.py
 !data/download_data.py
 
 data_sr/**
+!data_sr/*.csv
 
 datasets/COCO
 datasets/latent_diffusion_trainingset
