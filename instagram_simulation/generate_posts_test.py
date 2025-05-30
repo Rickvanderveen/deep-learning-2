@@ -104,7 +104,8 @@ def generate_post(driver, image_path, profile_picture, output_path):
 
     # Load the information onto the page
     driver.get("about:blank")
-    driver.execute_script("document.write(arguments[0]);", filled_html)
+    # driver.execute_script("document.write(arguments[0]);", filled_html)
+    driver.execute_script("document.documentElement.innerHTML = arguments[0];", filled_html)
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".nav-avatar"))
     )
