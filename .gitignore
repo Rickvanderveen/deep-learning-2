@@ -143,6 +143,12 @@ data/**
 datasets/COCO
 datasets/latent_diffusion_trainingset
 # datasets/ldm_train_val.csv
+
+embeddings/
+/combi-model/data
+/combi-model/data
+/combi-model/checkpoints
+
 data_with_filter/
 instagram_simulation/screenshot_simulation/
 meme-generatorV3/msc-dl2/data_with_memes/

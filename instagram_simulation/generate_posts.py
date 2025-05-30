@@ -9,8 +9,8 @@ import os
 import string
 import base64
 import argparse
-from pathlib import Path
 import csv
+from pathlib import Path
 
 def choose_random_value(arr):
     return random.choice(arr)
@@ -71,6 +71,8 @@ def svg_to_base64(path):
         encoded = base64.b64encode(svg_file.read()).decode('utf-8')
         return f"data:image/svg+xml;base64,{encoded}"
 
+
+
 def generate_post(driver, image_path, profile_picture, output_path):
     with open("template.html") as f:
         html_template = Template(f.read())
@@ -103,8 +105,7 @@ def generate_post(driver, image_path, profile_picture, output_path):
 
     # Load the information onto the page
     driver.get("about:blank")
-    driver.execute_script("document.documentElement.innerHTML = arguments[0];", filled_html)
-    # driver.execute_script("document.write(arguments[0]);", filled_html)
+    driver.execute_script("document.write(arguments[0]);", filled_html)
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".nav-avatar"))
     )
@@ -114,14 +115,16 @@ def generate_post(driver, image_path, profile_picture, output_path):
     driver.execute_script("arguments[0].scrollIntoView(true);", post_container) # Make sure we look at the full element
     post_container.screenshot(output_path)
 
+    # print(f"saved_screenshot for image f{image_path}")
+    # print("output dir:", output_path)
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Input and output of instagram simulation")
     parser.add_argument("--csv_path", type=str, default="./assets/csv")
     parser.add_argument("--avatars_dir", type=str, default="./assets/avatars")
     parser.add_argument("--output_dir", type=str, default="./output")
-    parser.add_argument("--input_dir", type=str, default="./assets/imgs")
-    parser.add_argument("--no_csv", action="store_true", dest="no_csv")
 
     args, _ = parser.parse_known_args()
 
@@ -145,39 +148,28 @@ if __name__ == "__main__":
 
     driver = webdriver.Firefox(options=options)
     #driver = webdriver.Chrome(options=options)
-    if not params.no_csv:
-        with open(csv_path, mode='r', newline='') as file:
-            csv_file = csv.reader(file)
-            next(csv_file)
 
-            for lines in csv_file:
-                example_filename = lines[0]
-                directory = os.path.dirname(params.csv_path)
-                example_path = os.path.join(directory, example_filename)
 
-                avatar = random.choice(avatar_images)
-                avatar_path = os.path.join(avatars_dir, avatar)
+    with open(csv_path, mode='r', newline='') as file:
+        csv_file = csv.reader(file)
+        next(csv_file)
 
-                filename, file_extension = os.path.splitext(example_filename)
-                output_filename = f"{filename}{file_extension}"
-                output_path = os.path.join(output_dir, output_filename)
+        for lines in csv_file:
+            example_filename = lines[0]
+            directory = os.path.dirname(params.csv_path)
+            example_path = os.path.join(directory, example_filename)
 
-                output_path_parents = Path(output_path).parent
-                if not output_path_parents.exists():
-                    output_path_parents.mkdir(parents=True, exist_ok=True)
-
-                generate_post(driver, example_path, avatar_path, output_path)
-    else:
-        imgs_dir = params.input_dir
-        example_images = [f for f in os.listdir(imgs_dir) if f.lower().endswith((".jpg", ".png", ".jpeg"))]
-        for i, example in enumerate(example_images):
-            example_path = os.path.join(imgs_dir, example)
             avatar = random.choice(avatar_images)
             avatar_path = os.path.join(avatars_dir, avatar)
-            filename, file_extension = os.path.splitext(example)
+
+            filename, file_extension = os.path.splitext(example_filename)
             output_filename = f"{filename}{file_extension}"
             output_path = os.path.join(output_dir, output_filename)
+
+            output_path_parents = Path(output_path).parent
+            if not output_path_parents.exists():
+                output_path_parents.mkdir(parents=True, exist_ok=True)
+
             generate_post(driver, example_path, avatar_path, output_path)
-        
+    
     driver.quit()
-    print("done")

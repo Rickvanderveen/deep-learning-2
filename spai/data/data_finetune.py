@@ -53,7 +53,9 @@ class CSVDataset(torch.utils.data.Dataset):
         views: int = 1,
         concatenate_views_horizontally: bool = False,
         lmdb_storage: Optional[pathlib.Path] = None,
-        views_generator: Optional[Callable[[Image.Image], tuple[Image.Image, ...]]] = None
+        views_generator: Optional[
+            Callable[[Image.Image], tuple[Image.Image, ...]]
+        ] = None,
     ):
         super().__init__()
         self.csv_path: pathlib.Path = csv_path
@@ -65,7 +67,8 @@ class CSVDataset(torch.utils.data.Dataset):
         self.transform = transform
         self.views: int = views
         self.views_generator: Optional[
-            Callable[[Image.Image], tuple[Image.Image, ...]]] = views_generator
+            Callable[[Image.Image], tuple[Image.Image, ...]]
+        ] = views_generator
         self.concatenate_views_horizontally: bool = concatenate_views_horizontally
         self.lmdb_storage: Optional[pathlib.Path] = lmdb_storage
 
@@ -148,7 +151,7 @@ class CSVDataset(torch.utils.data.Dataset):
         self,
         column_name: str,
         values: dict[int, Any],
-        export_dir: Optional[pathlib.Path] = None
+        export_dir: Optional[pathlib.Path] = None,
     ) -> None:
         for idx, v in values.items():
             self.entries[idx][column_name] = v
@@ -173,8 +176,10 @@ class CSVDataset(torch.utils.data.Dataset):
                 pathlib.Path(self.csv_root_path)
             )
         else:
-            self.data_reader: readers.LMDBFileStorageReader = readers.LMDBFileStorageReader(
-                filestorage.LMDBFileStorage(self.lmdb_storage, read_only=True)
+            self.data_reader: readers.LMDBFileStorageReader = (
+                readers.LMDBFileStorageReader(
+                    filestorage.LMDBFileStorage(self.lmdb_storage, read_only=True)
+                )
             )
 
 
@@ -188,7 +193,7 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
         path_column: str = "image",
         split_column: str = "split",
         class_column: str = "class",
-        lmdb_storage: Optional[pathlib.Path] = None
+        lmdb_storage: Optional[pathlib.Path] = None,
     ):
         super().__init__()
         self.csv_path: pathlib.Path = csv_path
@@ -241,15 +246,25 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
         if self.data_reader is None:
             self._create_data_reader()
 
-        anchor_path: str = sequence_to_string(unpack_sequence(self.anchor_v, self.anchor_o, idx))
+        anchor_path: str = sequence_to_string(
+            unpack_sequence(self.anchor_v, self.anchor_o, idx)
+        )
         positive_path: str = sequence_to_string(
-            unpack_sequence(self.positive_v, self.positive_o, idx))
+            unpack_sequence(self.positive_v, self.positive_o, idx)
+        )
         negative_path: str = sequence_to_string(
-            unpack_sequence(self.negative_v, self.negative_o, idx))
+            unpack_sequence(self.negative_v, self.negative_o, idx)
+        )
 
-        anchor_img_obj: Image.Image = self.data_reader.load_image(anchor_path, channels=3)
-        positive_img_obj: Image.Image = self.data_reader.load_image(positive_path, channels=3)
-        negative_img_obj: Image.Image = self.data_reader.load_image(negative_path, channels=3)
+        anchor_img_obj: Image.Image = self.data_reader.load_image(
+            anchor_path, channels=3
+        )
+        positive_img_obj: Image.Image = self.data_reader.load_image(
+            positive_path, channels=3
+        )
+        negative_img_obj: Image.Image = self.data_reader.load_image(
+            negative_path, channels=3
+        )
 
         anchor_img: np.ndarray = np.array(anchor_img_obj)
         positive_img: np.ndarray = np.array(positive_img_obj)
@@ -259,9 +274,11 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
         positive_img_obj.close()
         negative_img_obj.close()
 
-        return (self.transform(image=anchor_img)["image"],
-                self.transform(image=positive_img)["image"],
-                self.transform(image=negative_img)["image"])
+        return (
+            self.transform(image=anchor_img)["image"],
+            self.transform(image=positive_img)["image"],
+            self.transform(image=negative_img)["image"],
+        )
 
     def get_classes_num(self) -> int:
         return self.num_classes
@@ -280,14 +297,16 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
         for e in self.entries:
             entries_per_class[int(e[self.class_column])].append(e)
 
-        triplets: list[tuple[dict[str,Any], dict[str, Any], dict[str, Any]]] = []
+        triplets: list[tuple[dict[str, Any], dict[str, Any], dict[str, Any]]] = []
         for class_id, class_group in entries_per_class.items():
             class_group: list[dict[str, Any]] = list(class_group)
             rest_groups: list[list[dict[str, Any]]] = list(entries_per_class.values())
             del rest_groups[class_id]
 
             for i, e in enumerate(class_group):
-                negative_sample: dict[str, Any] = random.choice(random.choice(rest_groups))
+                negative_sample: dict[str, Any] = random.choice(
+                    random.choice(rest_groups)
+                )
 
                 positive_sample: dict[str, Any] = random.choice(class_group)
                 while e == positive_sample:
@@ -304,7 +323,9 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
         self.negative_v, self.negative_o = pack_sequences(
             [string_to_sequence(t[2][self.path_column]) for t in triplets]
         )
-        self.anchor_labels: np.ndarray = np.array([int(t[0][self.class_column]) for t in triplets])
+        self.anchor_labels: np.ndarray = np.array(
+            [int(t[0][self.class_column]) for t in triplets]
+        )
         self.triplets_num = len(triplets)
 
     def _create_data_reader(self) -> None:
@@ -318,8 +339,10 @@ class CSVDatasetTriplet(torch.utils.data.Dataset):
                 pathlib.Path(self.csv_root_path)
             )
         else:
-            self.data_reader: readers.LMDBFileStorageReader = readers.LMDBFileStorageReader(
-                filestorage.LMDBFileStorage(self.lmdb_storage, read_only=True)
+            self.data_reader: readers.LMDBFileStorageReader = (
+                readers.LMDBFileStorageReader(
+                    filestorage.LMDBFileStorage(self.lmdb_storage, read_only=True)
+                )
             )
 
 
@@ -330,7 +353,7 @@ def build_loader_finetune(config, logger):
         config.DATA.CSV_ROOT,
         config=config,
         split_name="train",
-        logger=logger
+        logger=logger,
     )
     config.freeze()
     dataset_val, _ = build_dataset(
@@ -338,9 +361,11 @@ def build_loader_finetune(config, logger):
         config.DATA.CSV_ROOT,
         config=config,
         split_name="val",
-        logger=logger
+        logger=logger,
     )
-    logger.info(f"Train images: {len(dataset_train)} | Validation images: {len(dataset_val)}")
+    logger.info(
+        f"Train images: {len(dataset_train)} | Validation images: {len(dataset_val)}"
+    )
     logger.info(f"Train Images Source: {dataset_train.get_dataset_root_path()}")
     logger.info(f"Validation Images Source: {dataset_val.get_dataset_root_path()}")
 
@@ -351,7 +376,7 @@ def build_loader_finetune(config, logger):
         pin_memory=config.DATA.PIN_MEMORY,
         drop_last=True,
         shuffle=True,
-        prefetch_factor=config.DATA.PREFETCH_FACTOR
+        prefetch_factor=config.DATA.PREFETCH_FACTOR,
     )
     data_loader_val = DataLoader(
         dataset_val,
@@ -359,17 +384,21 @@ def build_loader_finetune(config, logger):
         num_workers=config.DATA.NUM_WORKERS,
         pin_memory=config.DATA.PIN_MEMORY,
         drop_last=False,
-        prefetch_factor=config.DATA.VAL_PREFETCH_FACTOR  or config.DATA.PREFETCH_FACTOR,
-        collate_fn=(torch.utils.data.default_collate
-                    if not config.MODEL.RESOLUTION_MODE == "arbitrary"
-                    else image_enlisting_collate_fn)
+        prefetch_factor=config.DATA.VAL_PREFETCH_FACTOR or config.DATA.PREFETCH_FACTOR,
+        collate_fn=(
+            torch.utils.data.default_collate
+            if not config.MODEL.RESOLUTION_MODE == "arbitrary"
+            else image_enlisting_collate_fn
+        ),
     )
 
     # Setup mixup / cutmix
     mixup_fn = None
-    mixup_active: bool = (config.AUG.MIXUP > 0
-                          or config.AUG.CUTMIX > 0.
-                          or config.AUG.CUTMIX_MINMAX is not None)
+    mixup_active: bool = (
+        config.AUG.MIXUP > 0
+        or config.AUG.CUTMIX > 0.0
+        or config.AUG.CUTMIX_MINMAX is not None
+    )
     if mixup_active:
         mixup_fn = Mixup(
             mixup_alpha=config.AUG.MIXUP,
@@ -379,7 +408,7 @@ def build_loader_finetune(config, logger):
             switch_prob=config.AUG.MIXUP_SWITCH_PROB,
             mode=config.AUG.MIXUP_MODE,
             label_smoothing=config.MODEL.LABEL_SMOOTHING,
-            num_classes=config.MODEL.NUM_CLASSES
+            num_classes=config.MODEL.NUM_CLASSES,
         )
 
     return dataset_train, dataset_val, data_loader_train, data_loader_val, mixup_fn
@@ -390,22 +419,41 @@ def build_loader_test(
     logger,
     split: str = "test",
     dummy_csv_dir: Optional[pathlib.Path] = None,
-) -> tuple[list[str], list[torch.utils.data.Dataset], list[torch.utils.data.DataLoader]]:
+    data_loader_generator=None,
+    shuffle_data_loader: bool = False,
+    alternative_data_split: Optional[str] = None,
+) -> tuple[
+    list[str], list[torch.utils.data.Dataset], list[torch.utils.data.DataLoader]
+]:
+    """
+    Create the data loader(s).
+
+    Args:
+        split (str): The name of the split. This determines what data is loaded and
+                     what augmentations are applied (if not overwritten by `alternative_data_split`)
+        alternative_data_split (str, optional): Overides the split method. The data that is loaded
+                                      is still based on the `split` argument
+    """
     # Obtain the root directory for each test input (either a CSV file or a directory).
     input_root_paths: list[pathlib.Path]
     if len(config.DATA.TEST_DATA_CSV_ROOT) > 1:
         input_root_paths = [pathlib.Path(p) for p in config.DATA.TEST_DATA_CSV_ROOT]
     elif len(config.DATA.TEST_DATA_CSV_ROOT) == 1:
-        input_root_paths = [pathlib.Path(config.DATA.TEST_DATA_CSV_ROOT[0])
-                            for _ in config.DATA.TEST_DATA_PATH]
+        input_root_paths = [
+            pathlib.Path(config.DATA.TEST_DATA_CSV_ROOT[0])
+            for _ in config.DATA.TEST_DATA_PATH
+        ]
     else:
-        input_root_paths = [pathlib.Path(input_path).parent
-                            for input_path in config.DATA.TEST_DATA_PATH]
+        input_root_paths = [
+            pathlib.Path(input_path).parent for input_path in config.DATA.TEST_DATA_PATH
+        ]
 
     # If some input is a directory, create a dummy csv file for it.
     csv_paths: list[pathlib.Path] = []
     csv_root_paths: list[pathlib.Path] = []
-    for input_path, input_root_path in zip(config.DATA.TEST_DATA_PATH, input_root_paths):
+    for input_path, input_root_path in zip(
+        config.DATA.TEST_DATA_PATH, input_root_paths
+    ):
         input_path: pathlib.Path = pathlib.Path(input_path)
         if input_path.is_dir():
             # Create a dummy csv and point directories
@@ -415,14 +463,17 @@ def build_loader_test(
                 {
                     "image": str(file_path.name),
                     "split": split,
-                    "class": "1"  # TODO: Remove csv requirement for dummy ground-truth.
+                    "class": "1",  # TODO: Remove csv requirement for dummy ground-truth.
                 }
-                for file_path in input_path.iterdir() if filetype.is_image(file_path)
+                for file_path in input_path.iterdir()
+                if filetype.is_image(file_path)
             ]
             dummy_csv_path: pathlib.Path = dummy_csv_dir / f"{input_path.stem}.csv"
             data_utils.write_csv_file(entries, dummy_csv_path, delimiter=",")
             csv_paths.append(dummy_csv_path.absolute())
-            csv_root_paths.append(input_path.absolute())  # Paths in CSV are relative to input dir.
+            csv_root_paths.append(
+                input_path.absolute()
+            )  # Paths in CSV are relative to input dir.
         else:
             csv_paths.append(input_path.absolute())
             csv_root_paths.append(input_root_path.absolute())
@@ -430,24 +481,30 @@ def build_loader_test(
     # Obtain the separate testing sets and their names.
     test_datasets: list[CSVDataset] = []
     test_datasets_names: list[str] = []
-    num_classes_per_dataset: list[int]  = []
+    num_classes_per_dataset: list[int] = []
     for csv_path, csv_root_path in zip(csv_paths, csv_root_paths):
         csv_path: pathlib.Path = pathlib.Path(csv_path)
         dataset: CSVDataset
-        dataset, num_classes = build_dataset(csv_path, csv_root_path, config, split, logger)
+        dataset, num_classes = build_dataset(
+            csv_path, csv_root_path, config, split, logger, alternative_data_split
+        )
         test_datasets.append(dataset)
         test_datasets_names.append(csv_path.stem)
         num_classes_per_dataset.append(num_classes)
     # Check that the number of classes match among all test sets.
-    unique_number_of_classes: list[int] = list(collections.Counter(num_classes_per_dataset).keys())
+    unique_number_of_classes: list[int] = list(
+        collections.Counter(num_classes_per_dataset).keys()
+    )
     if len(unique_number_of_classes) > 1:
         raise RuntimeError(
             f"Encountered different number of classes among test sets: {unique_number_of_classes}"
         )
 
     for dataset, dataset_name in zip(test_datasets, test_datasets_names):
-        logger.info(f"Dataset \'{dataset_name}\' | Split: {split} | Total images: {len(dataset)} | "
-                    f"Source: {dataset.get_dataset_root_path()}")
+        logger.info(
+            f"Dataset '{dataset_name}' | Split: {split} | Total images: {len(dataset)} | "
+            f"Source: {dataset.get_dataset_root_path()}"
+        )
 
     # Create the corresponding data loaders.
     test_data_loaders: list[torch.utils.data.DataLoader] = [
@@ -457,10 +514,15 @@ def build_loader_test(
             num_workers=config.DATA.NUM_WORKERS,
             pin_memory=config.DATA.PIN_MEMORY,
             drop_last=False,
-            prefetch_factor=config.DATA.TEST_PREFETCH_FACTOR or config.DATA.PREFETCH_FACTOR,
-            collate_fn=(torch.utils.data.default_collate
-                        if not config.MODEL.RESOLUTION_MODE == "arbitrary"
-                        else image_enlisting_collate_fn)
+            prefetch_factor=config.DATA.TEST_PREFETCH_FACTOR
+            or config.DATA.PREFETCH_FACTOR,
+            collate_fn=(
+                torch.utils.data.default_collate
+                if not config.MODEL.RESOLUTION_MODE == "arbitrary"
+                else image_enlisting_collate_fn
+            ),
+            generator=data_loader_generator,
+            shuffle=shuffle_data_loader,
         )
         for dataset in test_datasets
     ]
@@ -474,12 +536,25 @@ def build_dataset(
     config,
     split_name: str,
     logger,
+    alternative_data_split: Optional[str] = None,
 ) -> tuple[Union[CSVDataset, CSVDatasetTriplet], int]:
     if split_name not in ["train", "val", "test"]:
-        raise RuntimeError(f"Unsupported split: {split_name}")
+        raise ValueError(f"Unsupported split: {split_name}")
+
+    if alternative_data_split is not None and alternative_data_split not in ["train", "val", "test"]:
+        raise ValueError(f"Unsupported alternative split: {split_name}")
+
+    # Save the original split name. This is only for when the split name is replaced
+    # by the `alternative_data_split`.
+    original_split = split_name
+    split_name = (
+        split_name if alternative_data_split is None else alternative_data_split
+    )
 
     transform = build_transform(split_name == "train", config)
-    logger.info(f"Data transform | mode: {config.TRAIN.MODE} | split: {split_name}:\n{transform}")
+    logger.info(
+        f"Data transform | mode: {config.TRAIN.MODE} | split: {split_name}:\n{transform}"
+    )
 
     if split_name == "train" and config.TRAIN.LOSS == "triplet":
         dataset = CSVDatasetTriplet(
@@ -487,7 +562,9 @@ def build_dataset(
             csv_root_dir,
             split=split_name,
             transform=transform,
-            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH) if config.DATA.LMDB_PATH else None
+            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH)
+            if config.DATA.LMDB_PATH
+            else None,
         )
     elif split_name == "train" and config.TRAIN.LOSS == "supcont":
         assert config.DATA.AUGMENTED_VIEWS > 1, "SupCon loss requires at least 2 views."
@@ -497,7 +574,9 @@ def build_dataset(
             split=split_name,
             transform=transform,
             views=config.DATA.AUGMENTED_VIEWS,
-            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH) if config.DATA.LMDB_PATH else None
+            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH)
+            if config.DATA.LMDB_PATH
+            else None,
         )
     elif split_name == "train" and config.MODEL.RESOLUTION_MODE == "arbitrary":
         dataset = CSVDataset(
@@ -507,43 +586,60 @@ def build_dataset(
             transform=transform,
             views=config.DATA.AUGMENTED_VIEWS,
             concatenate_views_horizontally=True,
-            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH) if config.DATA.LMDB_PATH else None
+            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH)
+            if config.DATA.LMDB_PATH
+            else None,
         )
     else:
         views_generator: Optional[Callable[[Image.Image], tuple[Image.Image, ...]]]
         if config.TEST.VIEWS_GENERATION_APPROACH == "tencrop":
+
             def safe_ten_crop(img: Image.Image) -> tuple[Image.Image, ...]:
                 width = img.width
                 height = img.height
                 left_padding: int = max((config.DATA.IMG_SIZE - width) // 2, 0)
                 right_padding: int = max(
                     (config.DATA.IMG_SIZE - width) // 2
-                    + (((config.DATA.IMG_SIZE - width) % 2) if config.DATA.IMG_SIZE > width else 0),
-                    0
+                    + (
+                        ((config.DATA.IMG_SIZE - width) % 2)
+                        if config.DATA.IMG_SIZE > width
+                        else 0
+                    ),
+                    0,
                 )
                 top_padding: int = max((config.DATA.IMG_SIZE - height) // 2, 0)
                 bottom_padding: int = max(
                     (config.DATA.IMG_SIZE - height) // 2
-                    + (((config.DATA.IMG_SIZE - height) % 2) if config.DATA.IMG_SIZE > height else 0),
-                    0
+                    + (
+                        ((config.DATA.IMG_SIZE - height) % 2)
+                        if config.DATA.IMG_SIZE > height
+                        else 0
+                    ),
+                    0,
                 )
-                img = pad(img, [left_padding, top_padding, right_padding, bottom_padding])
+                img = pad(
+                    img, [left_padding, top_padding, right_padding, bottom_padding]
+                )
                 return ten_crop(img, size=config.DATA.IMG_SIZE)
 
             views_generator = safe_ten_crop
         elif config.TEST.VIEWS_GENERATION_APPROACH is None:
             views_generator = None
         else:
-            raise TypeError(f"{config.TEST.VIEW_GENERATION_APPROACH} is not a supported "
-                            f"view generation approach.")
+            raise TypeError(
+                f"{config.TEST.VIEW_GENERATION_APPROACH} is not a supported "
+                f"view generation approach."
+            )
 
         dataset = CSVDataset(
             csv_path,
             csv_root_dir,
-            split=split_name,
+            split=original_split,
             transform=transform,
-            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH) if config.DATA.LMDB_PATH else None,
-            views_generator=views_generator
+            lmdb_storage=pathlib.Path(config.DATA.LMDB_PATH)
+            if config.DATA.LMDB_PATH
+            else None,
+            views_generator=views_generator,
         )
     num_classes: int = dataset.get_classes_num()
 
@@ -575,105 +671,151 @@ def build_transform(is_train, config) -> Callable[[np.ndarray], np.ndarray]:
 
         if config.AUG.MIN_CROP_AREA == config.AUG.MAX_CROP_AREA:
             transforms_list.append(
-                A.PadIfNeeded(min_height=config.DATA.IMG_SIZE, min_width=config.DATA.IMG_SIZE)
+                A.PadIfNeeded(
+                    min_height=config.DATA.IMG_SIZE, min_width=config.DATA.IMG_SIZE
+                )
             )
             transforms_list.append(
                 A.RandomCrop(height=config.DATA.IMG_SIZE, width=config.DATA.IMG_SIZE)
             )
         else:
             transforms_list.append(
-                A.RandomResizedCrop(size=(config.DATA.IMG_SIZE, config.DATA.IMG_SIZE),
-                                    scale=(config.AUG.MIN_CROP_AREA, config.AUG.MAX_CROP_AREA))
+                A.RandomResizedCrop(
+                    size=(config.DATA.IMG_SIZE, config.DATA.IMG_SIZE),
+                    scale=(config.AUG.MIN_CROP_AREA, config.AUG.MAX_CROP_AREA),
+                )
             )
-        transforms_list.extend([
-            A.HorizontalFlip(p=config.AUG.HORIZONTAL_FLIP_PROB),
-            A.VerticalFlip(p=config.AUG.VERTICAL_FLIP_PROB),
-            A.Rotate(limit=config.AUG.ROTATION_DEGREES,
-                     crop_border=True,
-                     p=config.AUG.ROTATION_PROB)
-        ])
-        if config.AUG.ROTATION_PROB > .0:
+        transforms_list.extend(
+            [
+                A.HorizontalFlip(p=config.AUG.HORIZONTAL_FLIP_PROB),
+                A.VerticalFlip(p=config.AUG.VERTICAL_FLIP_PROB),
+                A.Rotate(
+                    limit=config.AUG.ROTATION_DEGREES,
+                    crop_border=True,
+                    p=config.AUG.ROTATION_PROB,
+                ),
+            ]
+        )
+        if config.AUG.ROTATION_PROB > 0.0:
             # Rotation with crop_border set to True leads to images smaller than the target
             # size. So, restore the target size.
             transforms_list.append(
                 A.Resize(height=config.DATA.IMG_SIZE, width=config.DATA.IMG_SIZE)
             )
-        transforms_list.extend([
-            A.GaussianBlur(blur_limit=(3, 9),
-                           sigma_limit=(0.01, 0.5),
-                           p=config.AUG.GAUSSIAN_BLUR_PROB),
-            A.GaussNoise(p=config.AUG.GAUSSIAN_NOISE_PROB),
-            A.ColorJitter(
-                p=config.AUG.COLOR_JITTER,
-                brightness=config.AUG.COLOR_JITTER_BRIGHTNESS_RANGE,
-                contrast=config.AUG.COLOR_JITTER_CONTRAST_RANGE,
-                saturation=config.AUG.COLOR_JITTER_SATURATION_RANGE,
-                hue=config.AUG.COLOR_JITTER_HUE_RANGE,
-            ),
-            A.Sharpen(p=config.AUG.SHARPEN_PROB,
-                      alpha=config.AUG.SHARPEN_ALPHA_RANGE,
-                      lightness=config.AUG.SHARPEN_LIGHTNESS_RANGE),
-            A.ImageCompression(quality_lower=config.AUG.JPEG_MIN_QUALITY,
-                               quality_upper=config.AUG.JPEG_MAX_QUALITY,
-                               compression_type=ImageCompressionType.JPEG,
-                               p=config.AUG.JPEG_COMPRESSION_PROB),
-            A.ImageCompression(quality_lower=config.AUG.WEBP_MIN_QUALITY,
-                               quality_upper=config.AUG.WEBP_MAX_QUALITY,
-                               compression_type=ImageCompressionType.WEBP,
-                               p=config.AUG.WEBP_COMPRESSION_PROB),
-        ])
+        transforms_list.extend(
+            [
+                A.GaussianBlur(
+                    blur_limit=(3, 9),
+                    sigma_limit=(0.01, 0.5),
+                    p=config.AUG.GAUSSIAN_BLUR_PROB,
+                ),
+                A.GaussNoise(p=config.AUG.GAUSSIAN_NOISE_PROB),
+                A.ColorJitter(
+                    p=config.AUG.COLOR_JITTER,
+                    brightness=config.AUG.COLOR_JITTER_BRIGHTNESS_RANGE,
+                    contrast=config.AUG.COLOR_JITTER_CONTRAST_RANGE,
+                    saturation=config.AUG.COLOR_JITTER_SATURATION_RANGE,
+                    hue=config.AUG.COLOR_JITTER_HUE_RANGE,
+                ),
+                A.Sharpen(
+                    p=config.AUG.SHARPEN_PROB,
+                    alpha=config.AUG.SHARPEN_ALPHA_RANGE,
+                    lightness=config.AUG.SHARPEN_LIGHTNESS_RANGE,
+                ),
+                A.ImageCompression(
+                    quality_lower=config.AUG.JPEG_MIN_QUALITY,
+                    quality_upper=config.AUG.JPEG_MAX_QUALITY,
+                    compression_type=ImageCompressionType.JPEG,
+                    p=config.AUG.JPEG_COMPRESSION_PROB,
+                ),
+                A.ImageCompression(
+                    quality_lower=config.AUG.WEBP_MIN_QUALITY,
+                    quality_upper=config.AUG.WEBP_MAX_QUALITY,
+                    compression_type=ImageCompressionType.WEBP,
+                    p=config.AUG.WEBP_COMPRESSION_PROB,
+                ),
+            ]
+        )
         if config.MODEL.REQUIRED_NORMALIZATION == "imagenet":
             transforms_list.append(
                 A.Normalize(mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD)
             )
         elif config.MODEL.REQUIRED_NORMALIZATION == "positive_0_1":
-            transforms_list.append(
-                A.Normalize(mean=0., std=1.)
-            )
+            transforms_list.append(A.Normalize(mean=0.0, std=1.0))
         else:
-            raise RuntimeError(f"Unsupported Normalization: {config.MODEL.REQUIRED_NORMALIZATION}")
+            raise RuntimeError(
+                f"Unsupported Normalization: {config.MODEL.REQUIRED_NORMALIZATION}"
+            )
         transforms_list.append(ToTensorV2())
         transform = A.Compose(transforms_list)
 
     else:  # Inference augmentations
         transforms_list = [
-            A.ImageCompression(quality_lower=config.TEST.JPEG_QUALITY,
-                               quality_upper=config.TEST.JPEG_QUALITY,
-                               compression_type=ImageCompressionType.JPEG,
-                               p=1.0 if config.TEST.JPEG_COMPRESSION else .0),
-            A.ImageCompression(quality_lower=config.TEST.WEBP_QUALITY,
-                               quality_upper=config.TEST.WEBP_QUALITY,
-                               compression_type=ImageCompressionType.WEBP,
-                               p=1.0 if config.TEST.WEBP_COMPRESSION else .0),
-            A.GaussianBlur(blur_limit=(config.TEST.GAUSSIAN_BLUR_KERNEL_SIZE,
-                                       config.TEST.GAUSSIAN_BLUR_KERNEL_SIZE),
-                           sigma_limit=0,
-                           p=1.0 if config.TEST.GAUSSIAN_BLUR else .0),
-            A.GaussNoise(var_limit=(config.TEST.GAUSSIAN_NOISE_SIGMA**2,
-                                    config.TEST.GAUSSIAN_NOISE_SIGMA**2),
-                         p=1.0 if config.TEST.GAUSSIAN_NOISE else .0),
-            A.RandomScale(scale_limit=(config.TEST.SCALE_FACTOR-1, config.TEST.SCALE_FACTOR-1),
-                          p=1.0 if config.TEST.SCALE else .0)
+            A.ImageCompression(
+                quality_lower=config.TEST.JPEG_QUALITY,
+                quality_upper=config.TEST.JPEG_QUALITY,
+                compression_type=ImageCompressionType.JPEG,
+                p=1.0 if config.TEST.JPEG_COMPRESSION else 0.0,
+            ),
+            A.ImageCompression(
+                quality_lower=config.TEST.WEBP_QUALITY,
+                quality_upper=config.TEST.WEBP_QUALITY,
+                compression_type=ImageCompressionType.WEBP,
+                p=1.0 if config.TEST.WEBP_COMPRESSION else 0.0,
+            ),
+            A.GaussianBlur(
+                blur_limit=(
+                    config.TEST.GAUSSIAN_BLUR_KERNEL_SIZE,
+                    config.TEST.GAUSSIAN_BLUR_KERNEL_SIZE,
+                ),
+                sigma_limit=0,
+                p=1.0 if config.TEST.GAUSSIAN_BLUR else 0.0,
+            ),
+            A.GaussNoise(
+                var_limit=(
+                    config.TEST.GAUSSIAN_NOISE_SIGMA**2,
+                    config.TEST.GAUSSIAN_NOISE_SIGMA**2,
+                ),
+                p=1.0 if config.TEST.GAUSSIAN_NOISE else 0.0,
+            ),
+            A.RandomScale(
+                scale_limit=(
+                    config.TEST.SCALE_FACTOR - 1,
+                    config.TEST.SCALE_FACTOR - 1,
+                ),
+                p=1.0 if config.TEST.SCALE else 0.0,
+            ),
         ]
         if config.TEST.MAX_SIZE is not None:
             transforms_list.append(A.SmallestMaxSize(max_size=config.TEST.MAX_SIZE))
 
         if config.TEST.ORIGINAL_RESOLUTION:
-            transforms_list.append(A.PadIfNeeded(min_height=config.DATA.IMG_SIZE,
-                                                 min_width=config.DATA.IMG_SIZE))
+            transforms_list.append(
+                A.PadIfNeeded(
+                    min_height=config.DATA.IMG_SIZE, min_width=config.DATA.IMG_SIZE
+                )
+            )
         elif config.TEST.CROP:
-            transforms_list.append(A.PadIfNeeded(min_height=config.DATA.IMG_SIZE,
-                                                 min_width=config.DATA.IMG_SIZE))
-            transforms_list.append(A.CenterCrop(height=config.DATA.IMG_SIZE,
-                                                width=config.DATA.IMG_SIZE))
+            transforms_list.append(
+                A.PadIfNeeded(
+                    min_height=config.DATA.IMG_SIZE, min_width=config.DATA.IMG_SIZE
+                )
+            )
+            transforms_list.append(
+                A.CenterCrop(height=config.DATA.IMG_SIZE, width=config.DATA.IMG_SIZE)
+            )
         else:
             transforms_list.append(A.Resize(config.DATA.IMG_SIZE, config.DATA.IMG_SIZE))
         if config.MODEL.REQUIRED_NORMALIZATION == "imagenet":
-            transforms_list.append(A.Normalize(mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD))
+            transforms_list.append(
+                A.Normalize(mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD)
+            )
         elif config.MODEL.REQUIRED_NORMALIZATION == "positive_0_1":
-            transforms_list.append(A.Normalize(mean=0., std=1.))
+            transforms_list.append(A.Normalize(mean=0.0, std=1.0))
         else:
-            raise RuntimeError(f"Unsupported Normalization: {config.MODEL.REQUIRED_NORMALIZATION}")
+            raise RuntimeError(
+                f"Unsupported Normalization: {config.MODEL.REQUIRED_NORMALIZATION}"
+            )
         transforms_list.append(ToTensorV2())
         transform = A.Compose(transforms_list)
 
@@ -685,7 +827,7 @@ def string_to_sequence(s: str, dtype=np.int32) -> np.ndarray:
 
 
 def sequence_to_string(seq: np.ndarray) -> str:
-    return ''.join([chr(c) for c in seq])
+    return "".join([chr(c) for c in seq])
 
 
 def pack_sequences(seqs: Union[np.ndarray, list]) -> (np.ndarray, np.ndarray):
@@ -706,7 +848,7 @@ def unpack_sequence(values: np.ndarray, offsets: np.ndarray, index: int) -> np.n
 
 
 def image_enlisting_collate_fn(
-    batch: Iterable[tuple[torch.Tensor, np.ndarray, int]]
+    batch: Iterable[tuple[torch.Tensor, np.ndarray, int]],
 ) -> tuple[list[torch.Tensor], torch.Tensor, torch.Tensor]:
     """Collate function that enlists its entries."""
     return (

@@ -1,0 +1,136 @@
+Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Loading evaluation dataset screenshot_embeddings_sdxl.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:02,  5.41it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:01, 10.63it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 15.70it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 20.61it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 25.40it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 30.05it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 34.56it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 38.96it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 43.25it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 47.44it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+00:00<00:00, 51.52it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 55.53it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 59.44it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 63.27it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 67.01it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 70.62it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 65.77it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric           1.8688408136367798
+         val_acc            0.5270000100135803
+        val_loss            1.8675590753555298
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 1.8675590753555298, 'val_acc': 0.5270000100135803, 'hp_metric': 1.8688408136367798}]
+Loading evaluation dataset screenshot_embeddings_fodb.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 321.06it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 340.68it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 352.63it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 355.62it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 360.65it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 364.83it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 368.43it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 370.37it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 372.94it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 374.00it/s]Validation DataLoader 0:  69%|██████▉  Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+ | 11/16 [00:00<00:00, 375.43it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 376.69it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 377.42it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 378.35it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 379.01it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 380.68it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 341.24it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric          0.044066086411476135
+         val_acc            0.9819999933242798
+        val_loss            0.04342861846089363
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.04342861846089363, 'val_acc': 0.9819999933242798, 'hp_metric': 0.044066086411476135}]
+Loading evaluation dataset screenshot_embeddings_sd14.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 327.83it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 344.63it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 356.44it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 363.47it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 368.18it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 371.44it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 373.00it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 375.25it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 373.59it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 374.92it/s]Validation DataLoader 0:  69%|██████▉  Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+ | 11/16 [00:00<00:00, 376.10it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 376.62it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 377.76it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 378.38it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 379.20it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 380.49it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 341.56it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric           1.2076172828674316
+         val_acc            0.6729999780654907
+        val_loss             1.202303171157837
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 1.202303171157837, 'val_acc': 0.6729999780654907, 'hp_metric': 1.2076172828674316}]
+Loading evaluation dataset screenshot_embeddings_firefly.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 333.36it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 341.79it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 352.54it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 361.34it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 362.82it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 367.22it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 369.29it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 371.82it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 371.33it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 372.69it/s]Validation DataLoader 0:  69%|██████▉  Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+ | 11/16 [00:00<00:00, 374.15it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 375.55it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 376.37it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 377.50it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 378.37it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 379.83it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 341.25it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric            4.505352020263672
+         val_acc            0.15000000596046448
+        val_loss             4.505245208740234
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 4.505245208740234, 'val_acc': 0.15000000596046448, 'hp_metric': 4.505352020263672}]
+Loading evaluation dataset screenshot_embeddings_coco.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 334.69it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 350.65it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 359.77it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 366.82it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 371.03it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 372.69it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 375.04it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 376.86it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 375.36it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 376.76it/s]Validation DataLoader 0:  69%|██████▉  Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+ | 11/16 [00:00<00:00, 378.14it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 378.56it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 379.39it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 380.13it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 355.38it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 356.96it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 322.02it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric          0.004596124868839979
+         val_acc             0.996999979019165
+        val_loss           0.0041287364438176155
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.0041287364438176155, 'val_acc': 0.996999979019165, 'hp_metric': 0.004596124868839979}]
+Loading evaluation dataset screenshot_embeddings_openimages.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 332.43it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 344.30it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 355.85it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 361.52it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 366.11it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 369.44it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 371.73it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 374.12it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 372.64it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 373.75it/s]Validation DataLoader 0:  69%|██████▉  Using default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+SLURM auto-requeueing enabled. Setting signal handlers.
+ | 11/16 [00:00<00:00, 374.76it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 375.93it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 377.02it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 377.66it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 378.65it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 380.06it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 341.41it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric           0.08637003600597382
+         val_acc            0.9660000205039978
+        val_loss            0.08611571043729782
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.08611571043729782, 'val_acc': 0.9660000205039978, 'hp_metric': 0.08637003600597382}]
+Loading evaluation dataset screenshot_embeddings_imagenet.pkl
+Running evaluation...
+Validation: |          | 0/? [00:00<?, ?it/s]Validation:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   0%|          | 0/16 [00:00<?, ?it/s]Validation DataLoader 0:   6%|▋         | 1/16 [00:00<00:00, 334.69it/s]Validation DataLoader 0:  12%|█▎        | 2/16 [00:00<00:00, 346.29it/s]Validation DataLoader 0:  19%|█▉        | 3/16 [00:00<00:00, 355.14it/s]Validation DataLoader 0:  25%|██▌       | 4/16 [00:00<00:00, 360.20it/s]Validation DataLoader 0:  31%|███▏      | 5/16 [00:00<00:00, 364.89it/s]Validation DataLoader 0:  38%|███▊      | 6/16 [00:00<00:00, 368.10it/s]Validation DataLoader 0:  44%|████▍     | 7/16 [00:00<00:00, 370.43it/s]Validation DataLoader 0:  50%|█████     | 8/16 [00:00<00:00, 372.76it/s]Validation DataLoader 0:  56%|█████▋    | 9/16 [00:00<00:00, 371.46it/s]Validation DataLoader 0:  62%|██████▎   | 10/16 [00:00<00:00, 373.16it/s]Validation DataLoader 0:  69%|██████▉   | 11/16 [00:00<00:00, 374.40it/s]Validation DataLoader 0:  75%|███████▌  | 12/16 [00:00<00:00, 375.02it/s]Validation DataLoader 0:  81%|████████▏ | 13/16 [00:00<00:00, 376.17it/s]Validation DataLoader 0:  88%|████████▊ | 14/16 [00:00<00:00, 376.74it/s]Validation DataLoader 0:  94%|█████████▍| 15/16 [00:00<00:00, 377.85it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 379.00it/s]Validation DataLoader 0: 100%|██████████| 16/16 [00:00<00:00, 339.99it/s]
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     Validate metric           DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        hp_metric          0.0006281860987655818
+         val_acc                    1.0
+        val_loss           0.0006294663180597126
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Evaluation results: [{'val_loss': 0.0006294663180597126, 'val_acc': 1.0, 'hp_metric': 0.0006281860987655818}]
+
+JOB STATISTICS
+==============
+Job ID: 12080709
+Cluster: snellius
+User/Group: scur2673/scur2673
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:07:48 core-walltime
+Job Wall-clock time: 00:00:26
+Memory Utilized: 0.00 MB
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics can only be obtained after the job has ended as seff tool is based on the accounting database data.
