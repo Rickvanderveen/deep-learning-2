@@ -137,8 +137,10 @@ pretrains/
 
 data/**
 !data/*.csv
-!data/check_data.py
 !data/download_data.py
+
+data_sr/**
+!data_sr/*.csv
 
 datasets/COCO
 datasets/latent_diffusion_trainingset
@@ -150,6 +152,8 @@ embeddings/
 /combi-model/checkpoints
 
 data_with_filter/
+!data_with_filter/*.csv
+
 instagram_simulation/screenshot_simulation/
 meme-generatorV3/msc-dl2/data_with_memes/
 # meme_inference/
