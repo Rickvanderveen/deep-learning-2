@@ -1,0 +1,104 @@
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+You are using a CUDA device ('NVIDIA A100-SXM4-40GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:654: Checkpoint directory /gpfs/home1/scur2673/deep-learning-2/combi-model/checkpoints exists and is not empty.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/optim/lr_scheduler.py:62: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn(
+
+  | Name                  | Type              | Params | Mode 
+--------------------------------------------------------------------
+0 | model                 | Sequential        | 4.7 M  | train
+1 | rine_projection       | ProjectionBlock   | 262 K  | train
+2 | patchcraft_projection | ProjectionBlock   | 9.0 K  | train
+3 | spai_projection       | ProjectionBlock   | 281 K  | train
+4 | criterion             | BCEWithLogitsLoss | 0      | train
+--------------------------------------------------------------------
+5.3 M     Trainable params
+0         Non-trainable params
+5.3 M     Total params
+21.106    Total estimated model params size (MB)
+22        Modules in train mode
+0         Modules in eval mode
+SLURM auto-requeueing enabled. Setting signal handlers.
+loading dataset...
+/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=8` in the `DataLoader` to improve performance.
+Traceback (most recent call last):
+  File "/gpfs/home1/scur2673/deep-learning-2/combi-model/train.py", line 99, in <module>
+    trainer.fit(model, train_loader, val_loader)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 561, in fit
+    call._call_and_handle_interrupt(
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 48, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 599, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 1012, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 1054, in _run_stage
+    self._run_sanity_check()
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/trainer.py", line 1083, in _run_sanity_check
+    val_loop.run()
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 145, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 437, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/trainer/call.py", line 328, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/pytorch_lightning/strategies/strategy.py", line 412, in validation_step
+    return self.lightning_module.validation_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/combi-model/MLP.py", line 90, in validation_step
+    logits = self(x)
+             ^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/combi-model/MLP.py", line 76, in forward
+    return self.model(embeddings).squeeze(1)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/container.py", line 250, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home1/scur2673/deep-learning-2/.venv/lib64/python3.11/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (768x256 and 1536x1536)
+Sanity Checking: |          | 0/? [00:00<?, ?it/s]Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]                                                                   srun: error: gcn17: task 0: Exited with exit code 1
+srun: Terminating StepId=12048521.0
+
+JOB STATISTICS
+==============
+Job ID: 12048521
+Cluster: snellius
+User/Group: scur2673/scur2673
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:41
+CPU Efficiency: 4.65% of 00:14:42 core-walltime
+Job Wall-clock time: 00:00:49
+Memory Utilized: 30.21 GB
+Memory Efficiency: 25.18% of 120.00 GB (120.00 GB/node)

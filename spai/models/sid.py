@@ -130,6 +130,35 @@ class PatchBasedMFViT(nn.Module):
             raise TypeError('x must be a tensor or a list of tensors')
 
         return x
+    
+    def get_embedding(
+        self,
+        x: Union[torch.Tensor, list[torch.Tensor]],
+        feature_extraction_batch_size: Optional[int] = None,
+        export_dirs: Optional[list[pathlib.Path]] = None,
+    ) -> Union[torch.Tensor, tuple[torch.Tensor, list['AttentionMask']]]:
+        """Forward pass of a batch of images.
+
+        The images should not have been normalized before and the value of each pixel should
+        lie in [0, 1].
+
+        :param x: B x C x H x W
+        :param feature_extraction_batch_size:
+        :param export_dirs:
+        """
+        if isinstance(x, torch.Tensor):
+            x = self.forward_batch_embedding(x)
+        elif isinstance(x, list):
+            if feature_extraction_batch_size is None:
+                feature_extraction_batch_size = len(x)
+            if export_dirs is not None:
+                raise ValueError("Using export_dirs not supported")
+            else:
+                x = self.forward_arbitrary_resolution_batch_embedding(x, feature_extraction_batch_size)
+        else:
+            raise TypeError('x must be a tensor or a list of tensors')
+
+        return x
 
     def patches_attention(
         self,
@@ -169,9 +198,29 @@ class PatchBasedMFViT(nn.Module):
 
         x = self.patches_attention(x)  # B x D
         x = self.norm(x)  # B x D
+        print("Before cls head in forward batch:", x.shape)
         x = self.cls_head(x)  # B x 1
+        print(x.shape)
 
         return x
+    
+    def forward_batch_embedding(self, x: torch.Tensor) -> torch.Tensor:
+        x = utils.patchify_image(
+            x,
+            (self.img_patch_size, self.img_patch_size),
+            (self.img_patch_stride, self.img_patch_stride)
+        )  # B x L x C x H x W
+
+        patch_features: list[torch.Tensor] = []
+        for i in range(x.size(1)):
+            patch_features.append(self.mfvit(x[:, i]))
+        x = torch.stack(patch_features, dim=1)  # B x L x D
+        del patch_features
+
+        x = self.patches_attention(x)  # B x D
+        embeddings = self.norm(x)  # B x D
+
+        return embeddings
 
     def forward_arbitrary_resolution_batch(
         self,
@@ -232,9 +281,73 @@ class PatchBasedMFViT(nn.Module):
         del attended
 
         x = self.norm(x)  # B x D
+        print("Before cls head in forward arbitrary res batch:", x.shape)
         x = self.cls_head(x)  # B x 1
+        print(x.shape)
 
         return x
+    
+    def forward_arbitrary_resolution_batch_embedding(
+        self,
+        x: list[torch.Tensor],
+        feature_extraction_batch_size: int
+    ) -> torch.Tensor:
+        """Forward pass of a batch of images of different resolutions.
+
+        Batch size on the tensors should equal one.
+
+        :param x: list of 1 x C x H_i x W_i tensors, where i denote the i-th image in the list.
+        :param feature_extraction_batch_size:
+
+        :returns: A B x 1 tensor.
+        """
+        # Rearrange the patches from all images into a single tensor.
+        patched_images: list[torch.Tensor] = []
+        for img in x:
+            patched: torch.Tensor = utils.patchify_image(
+                img,
+                (self.img_patch_size, self.img_patch_size),
+                (self.img_patch_stride, self.img_patch_stride)
+            )  # 1 x L_i x C x H x W
+            if patched.size(1) < self.minimum_patches:
+                patched: tuple[torch.Tensor, ...] = five_crop(
+                    img, [self.img_patch_size, self.img_patch_size]
+                )
+                patched: torch.Tensor = torch.stack(patched, dim=1)
+            patched_images.append(patched)
+        x = patched_images
+        del patched_images
+        # x = [
+        #     utils.patchify_image(
+        #         img,
+        #         (self.img_patch_size, self.img_patch_size),
+        #         (self.img_patch_stride, self.img_patch_stride)
+        #     )  # 1 x L_i x C x H x W
+        #     for img in x
+        # ]
+        img_patches_num: list[int] = [img.size(1) for img in x]
+        x = torch.cat(x, dim=1)  # 1 x SUM(L_i) x C x H x W
+        x = x.squeeze(dim=0)  # SUM(L_i) x C x H x W
+
+        # Process the patches in groups of feature_extraction_batch_size.
+        features: list[torch.Tensor] = []
+        for i in range(0, x.size(0), feature_extraction_batch_size):
+            features.append(self.mfvit(x[i:i+feature_extraction_batch_size]))
+        x = torch.cat(features, dim=0)  # SUM(L_i) x D
+        del features
+
+        # Attend to patches according to the image they belong to.
+        attended: list[torch.Tensor] = []
+        processed_sum: int = 0
+        for i in img_patches_num:
+            attended.append(self.patches_attention(x[processed_sum:processed_sum+i].unsqueeze(0)))
+            processed_sum += i
+        x = torch.cat(attended, dim=0)  # B x D
+        del attended
+
+        embedding = self.norm(x)  # B x D
+
+        return embedding
 
     def forward_arbitrary_resolution_batch_with_export(
         self,
