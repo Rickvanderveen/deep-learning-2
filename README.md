@@ -270,6 +270,20 @@ To simulate meme filters, you first have to go to the `meme-generatorV3/msc-dl2/
 python meme-python.py <./data/input_csv>
 ```
 
+### Super resolution
+To modify images by applying super-resolution you can run the following command:
+```bash
+python super_resolution.py \
+  -f <./data/input_csv> \
+  --root_dir data \
+  -o <output directory> \
+  --batch_size=1
+```
+
+where:
+- `input_csv`: is the path to the csv file, under the data directory, containing all the input images.
+
+
 ## Training
 ### Reduced training set
 After downloading the `latent_diffusion_trainingset` and `COCO`, we used the following prompt to create a csv file consisting of all images: 
@@ -288,4 +302,54 @@ To reduce the training set to 17,997 real and 17,997 generated images, we first 
 python ./datasets/training_dataset.py trainset --input_csv ./datasets/reduced_training_data.csv
 
 ```
-in the main directory. 
+in the main directory.
+
+### Creating dataset embeddings
+To create the embeddings for the training and validation data you can use the `create_multi_embeddings.py` script.
+The training data is created by the following command:
+```bash
+python create_multi_embedding.py \
+  --dataPath datasets/reduced_training_data.csv \
+  --batchSize 64 \
+  --root_dir datasets \
+  --data_split train \
+  --embedding_file train_embeddings.pkl
+```
+The validation data is created by the following command:
+```bash
+python create_multi_embedding.py \
+  --dataPath datasets/reduced_training_data.csv \
+  --batchSize 64 \
+  --root_dir datasets \
+  --data_split val \
+  --embedding_file embeddings/val_embeddings.pkl
+```
+
+To create the embeddings fo the test datasets you can use again the `create_multi_embedding.py` script. The following command is an example of how to create the embeddings of the COCO dataset:
+```bash
+python create_multi_embedding.py \
+  --dataPath data/real_coco.csv \
+  --batchSize 32 \
+  --root_dir data \
+  --data_split test \
+  --embedding_file coco_test_embeddings.pkl
+```
+To create the embeddings for different test datasets you would change the `--dataPath` argument.
+
+### Training the MLP
+```bash
+python train.py \
+  --lr 3e-6 \
+  --batch_size 256 \
+  --epochs 50 \
+  --model_name SplitMLP
+```
+
+### Create the predictions using ROGER
+To create the prediction it is expected that the embeddings are already created and stored in the folder specified by `--eval_data_path`. The predictions are stored per input file in the directory specified in `--outdir_dir`.
+```bash
+python eval.py \
+  --checkpoint_path checkpoints/SplitMLP-v1.ckpt \
+  --eval_data_path data/test_data_modifications/sr \
+  --output_dir eval_splitmlp_sr
+```
