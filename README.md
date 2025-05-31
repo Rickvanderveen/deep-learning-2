@@ -1,5 +1,5 @@
-# SPAI: Spectral AI-Generated Image Detector
-__Official code repository for the CVPR2025 paper [Any-Resolution AI-Generated Image Detection by Spectral Learning](https://arxiv.org/abs/2411.19417).__
+# ROGER: Robust AI-Generated Image Recognizer
+<!-- __Official code repository for the CVPR2025 paper [Any-Resolution AI-Generated Image Detection by Spectral Learning](https://arxiv.org/abs/2411.19417).__
 
 <div align="center";">
 
@@ -23,16 +23,16 @@ samples of this learned model.**
 ### :newspaper: News
 
 - 28/03/25: Code released.
-- 27/02/25: Paper accepted on CVPR2025.
+- 27/02/25: Paper accepted on CVPR2025. -->
 
-## :hammer: Installation
-
+## Installation
+<!-- 
 ### Hardware requirements
 
 The code originally targeted Nvidia L40S 48GB GPU, however many recent cuda-enabled GPUs should be
 supported. Inference should be effortless performed with less than 8GB of GPU RAM. As training originally
 targeted a 48GB GPU, a suitable GPU should be presented to reproduce the paper's setup
-without further modifications of the code. 
+without further modifications of the code.  -->
 
 ### Required libraries
 #### Anaconda
@@ -60,14 +60,14 @@ To execute a python program with uv you run `uv run python <path to file>`. So l
 uv run python main.py
 ```
 
-Furthermore, the installation of [Nvidia APEX](https://github.com/NVIDIA/apex) is required for training.  
+<!-- Furthermore, the installation of [Nvidia APEX](https://github.com/NVIDIA/apex) is required for training.   -->
 
-### Weights Checkpoint
+<!-- ### Weights Checkpoint
 
 The trained weights checkpoint can be downloaded [here](https://drive.google.com/file/d/1vvXmZqs6TVJdj8iF1oJ4L_fcgdQrp_YI/view?usp=sharing) 
-and should be placed under the `weights` directory, located under the project's root directory.
+and should be placed under the `weights` directory, located under the project's root directory. -->
 
-## :fire: Inference
+<!-- ## :fire: Inference
 
 To compute the predicted scores for a set of images, place them under a directory
 and use the following command.
@@ -82,9 +82,9 @@ where:
 
 The `--input` option also accepts CSV files containing the paths of the images. The CSV
 files of the evaluation set, included under the `data` directory, can be used as examples.
-For downloading the images of these evaluation CSVs, check the instruction [here](docs/data.md).
-
-### ⚠️ Dataset problem
+For downloading the images of these evaluation CSVs, check the instruction [here](docs/data.md). -->
+## Dataset
+### Dataset problem
 The RAISE-1k dataset has 1 incomplete image: `r0bf7f938t.tif`. It is possible to
 download the image, but opening the image or loading the image via the code results
 in errors and/or crashes your code. The error is an TIFFFillStrip error and will look
@@ -94,7 +94,7 @@ TIFFFillStrip: Read error on strip 4899; got 18446744073705070833 bytes, expecte
 ```
 So only 999 images from the RAISE-1k can be used
 
-## :triangular_ruler: Architecture Overview
+<!-- ## :triangular_ruler: Architecture Overview
 
 <p align="center">
     <img src="docs/architecture.svg" alt="Overview of the SPAI architecture" />
@@ -228,9 +228,9 @@ If you found this work useful for your research, you can cite the following pape
   journal={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   year={2025}
 }
-```
+``` -->
 
-### Inference
+## Inference
 To compute the predicted scores for a set of images, place them under a directory
 and use the following command.
 
@@ -246,7 +246,7 @@ where:
 - `input_csv`: is the path to the csv file containing all the input images. For the original data, the csv files exist under the directory `data`. For the modified datasets, the csv files are under the directories `data_with_filter`, `data_sr`, `meme-generatorV3/msc-dl2/data_with_memes`, and `instagram_simulation/screenshot_simulation/`.
 - `output_dir`: is a directory where the csv file with the predictions are written to. For the original data, the output directory was `inference`. For the modified datasets, the output directories were `filter_inference`, `inference_sr`, `meme_inference`, and `ss_inference`.
 
-### Evaluation
+## Evaluation
 To compute the average AUC of a fake imageset over several real imagesets, the following command can be executed: 
 
 ```bash
@@ -256,6 +256,7 @@ python evaluate.py --metric auc --input_dir <input_dir>
 where:
 - `input_dir`: is the directory containing all the csv files from inference. For the original data, the input directory was `inference`. For the modified datasets, the input directories were `filter_inference`, `inference_sr`, `meme_inference`, and `ss_inference`.
 
+## Modified datasets
 ### Instagram screenshot simulation
 In order to generate Instagram screenshot data, you should first go to `instagram_simulation` directory, and then run the following for each required csv file:
 
@@ -280,6 +281,7 @@ To simulate meme filters, you first have to go to the `meme-generatorV3/msc-dl2/
 python meme-python.py <./data/input_csv>
 ```
 
+## Training
 ### Reduced training set
 After downloading the `latent_diffusion_trainingset` and `COCO`, we used the following prompt to create a csv file consisting of all images: 
 
