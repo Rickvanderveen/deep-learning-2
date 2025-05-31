@@ -243,8 +243,8 @@ python -m spai infer \
 ```
 
 where:
-- `input_csv`: is the path to the csv file containing all the input images. For the original data, the csv files exist under the directory `data`. For the modified datasets, the csv files are under the directories `data_with_filter`, `meme-generatorV3/msc-dl2/data_with_memes`, and `instagram_simulation/screenshot_simulation/`.
-- `output_dir`: is a directory where the csv file with the predictions are written to. For the original data, the output directory was `inference`. For the modified datasets, the output directories were `filter_inference`, `meme_inference`, and `ss_inference`.
+- `input_csv`: is the path to the csv file containing all the input images. For the original data, the csv files exist under the directory `data`. For the modified datasets, the csv files are under the directories `data_with_filter`, `data_sr`, `meme-generatorV3/msc-dl2/data_with_memes`, and `instagram_simulation/screenshot_simulation/`.
+- `output_dir`: is a directory where the csv file with the predictions are written to. For the original data, the output directory was `inference`. For the modified datasets, the output directories were `filter_inference`, `inference_sr`, `meme_inference`, and `ss_inference`.
 
 ### Evaluation
 To compute the average AUC of a fake imageset over several real imagesets, the following command can be executed: 
@@ -254,7 +254,7 @@ python evaluate.py --metric auc --input_dir <input_dir>
 ```
 
 where:
-- `input_dir`: is the directory containing all the csv files from inference. For the original data, the input directory was `inference`. For the modified datasets, the input directories were `filter_inference`, `meme_inference`, and `ss_inference`.
+- `input_dir`: is the directory containing all the csv files from inference. For the original data, the input directory was `inference`. For the modified datasets, the input directories were `filter_inference`, `inference_sr`, `meme_inference`, and `ss_inference`.
 
 ### Instagram screenshot simulation
 In order to generate Instagram screenshot data, you should first go to `instagram_simulation` directory, and then run the following for each required csv file:
