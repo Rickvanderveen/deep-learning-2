@@ -78,7 +78,7 @@ def single_super_resolution(
         for batch in tqdm(data_loader, total=len(data_loader)):
             images = batch["image"].to(device)
             image_names = batch["image_name"]
-            _labels = batch["label"]
+            labels = batch["label"]
             splits = batch["split"]
 
             # Apply super resolution
@@ -93,10 +93,8 @@ def single_super_resolution(
                 output_image_path.parent.mkdir(parents=True, exist_ok=True)
                 output_image.save(output_image_path)
 
-                # An image after super resolution is considered ai generated
-                is_generated = 1
                 # Update the output csv with the new image
-                writer.writerow([image_name, is_generated, splits[img_idx]])
+                writer.writerow([image_name, labels[img_idx], splits[img_idx]])
 
 
 @click.command()
