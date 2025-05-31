@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu_a100
+#SBATCH --gpus=1
+#SBATCH --job-name=combi_auc
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=9
+#SBATCH --time=12:00:00
+
+#SBATCH --output=combi_auc/sd14-%A.out
+module purge
+
+# Your job starts in the directory where you call sbatch
+cd $HOME/deep-learning-2/
+
+# Run your code
+srun uv run python evaluate.py avg combi-model/eval_results/screenshot_embeddings_sd14.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_coco.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_imagenet.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_fodb.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_openimages.pkl_prediction_results.csv
+srun uv run python evaluate.py avg combi-model/eval_results/screenshot_embeddings_sdxl.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_coco.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_imagenet.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_fodb.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_openimages.pkl_prediction_results.csv
+srun uv run python evaluate.py avg combi-model/eval_results/screenshot_embeddings_firefly.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_coco.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_imagenet.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_fodb.pkl_prediction_results.csv combi-model/eval_results/screenshot_embeddings_openimages.pkl_prediction_results.csv

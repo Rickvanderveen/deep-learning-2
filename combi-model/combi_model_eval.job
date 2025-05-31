@@ -28,5 +28,5 @@ cd $HOME/deep-learning-2/combi-model/
 
 srun uv run python eval.py \
   --checkpoint_path checkpoints/SplitMLP-v1.ckpt \
-  --eval_data_path data/test_data_modifications/screenshot \
-  --output_dir eval_splitmlp_screenshot
+  --eval_data_path ../meme-generatorV3/embeddings \
+  --output_dir eval_splitmlp_meme_simulation

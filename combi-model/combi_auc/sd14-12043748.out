@@ -1,0 +1,33 @@
+Average AUC of screenshot_embeddings_sd14.pkl_prediction_results.csv over screenshot_embeddings_coco.pkl_prediction_results.csv, screenshot_embeddings_imagenet.pkl_prediction_results.csv, screenshot_embeddings_fodb.pkl_prediction_results.csv, screenshot_embeddings_openimages.pkl_prediction_results.csv
+      screenshot_embeddings_coco.pkl_prediction_results: 0.5295000076293945
+  screenshot_embeddings_imagenet.pkl_prediction_results: 0.5295000076293945
+      screenshot_embeddings_fodb.pkl_prediction_results: 0.5295000076293945
+screenshot_embeddings_openimages.pkl_prediction_results: 0.5295000076293945
+                                            Average AUC: 0.5295000076293945
+Average AUC of screenshot_embeddings_sdxl.pkl_prediction_results.csv over screenshot_embeddings_coco.pkl_prediction_results.csv, screenshot_embeddings_imagenet.pkl_prediction_results.csv, screenshot_embeddings_fodb.pkl_prediction_results.csv, screenshot_embeddings_openimages.pkl_prediction_results.csv
+      screenshot_embeddings_coco.pkl_prediction_results: 0.5195000171661377
+  screenshot_embeddings_imagenet.pkl_prediction_results: 0.5195000171661377
+      screenshot_embeddings_fodb.pkl_prediction_results: 0.5195000171661377
+screenshot_embeddings_openimages.pkl_prediction_results: 0.5195000171661377
+                                            Average AUC: 0.5195000171661377
+Average AUC of screenshot_embeddings_firefly.pkl_prediction_results.csv over screenshot_embeddings_coco.pkl_prediction_results.csv, screenshot_embeddings_imagenet.pkl_prediction_results.csv, screenshot_embeddings_fodb.pkl_prediction_results.csv, screenshot_embeddings_openimages.pkl_prediction_results.csv
+      screenshot_embeddings_coco.pkl_prediction_results: 0.5009999871253967
+  screenshot_embeddings_imagenet.pkl_prediction_results: 0.5009999871253967
+      screenshot_embeddings_fodb.pkl_prediction_results: 0.5009999871253967
+screenshot_embeddings_openimages.pkl_prediction_results: 0.5009999871253967
+                                            Average AUC: 0.5009999871253967
+
+JOB STATISTICS
+==============
+Job ID: 12043748
+Cluster: snellius
+User/Group: scur2688/scur2688
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:12
+CPU Efficiency: 1.96% of 00:10:12 core-walltime
+Job Wall-clock time: 00:00:34
+Memory Utilized: 1.75 MB
+Memory Efficiency: 0.00% of 120.00 GB (120.00 GB/node)
+WARNING: Efficiency statistics can only be obtained after the job has ended as seff tool is based on the accounting database data.

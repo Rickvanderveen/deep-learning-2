@@ -1,0 +1,20 @@
+Usage: evaluate.py avg [OPTIONS] FAKE [REAL]...
+Try 'evaluate.py avg --help' for help.
+
+Error: Invalid value for 'FAKE': Path 'combi-model/eval_results/sd3_test_embeddings.pkl_prediction_results.csv' does not exist.
+srun: error: gcn2: task 0: Exited with exit code 2
+srun: Terminating StepId=12043623.0
+
+JOB STATISTICS
+==============
+Job ID: 12043623
+Cluster: snellius
+User/Group: scur2688/scur2688
+State: FAILED (exit code 2)
+Nodes: 1
+Cores per node: 9
+CPU Utilized: 00:00:07
+CPU Efficiency: 3.24% of 00:03:36 core-walltime
+Job Wall-clock time: 00:00:24
+Memory Utilized: 1.67 MB
+Memory Efficiency: 0.00% of 60.00 GB (60.00 GB/node)
