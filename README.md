@@ -229,3 +229,72 @@ If you found this work useful for your research, you can cite the following pape
   year={2025}
 }
 ```
+
+### Inference
+To compute the predicted scores for a set of images, place them under a directory
+and use the following command.
+
+```bash
+python -m spai infer \
+  --input <input_csv> \
+  --output <output_folder> \
+  --batch-size 8 \
+
+```
+
+where:
+- `input_csv`: is the path to the csv file containing all the input images. For the original data, the csv files exist under the directory `data`. For the modified datasets, the csv files are under the directories `data_with_filter`, `meme-generatorV3/msc-dl2/data_with_memes`, and `instagram_simulation/screenshot_simulation/`.
+- `output_dir`: is a directory where the csv file with the predictions are written to. For the original data, the output directory was `inference`. For the modified datasets, the output directories were `filter_inference`, `meme_inference`, and `ss_inference`.
+
+### Evaluation
+To compute the average AUC of a fake imageset over several real imagesets, the following command can be executed: 
+
+```bash
+python evaluate.py --metric auc --input_dir <input_dir>
+```
+
+where:
+- `input_dir`: is the directory containing all the csv files from inference. For the original data, the input directory was `inference`. For the modified datasets, the input directories were `filter_inference`, `meme_inference`, and `ss_inference`.
+
+### Instagram screenshot simulation
+In order to generate Instagram screenshot data, you should first go to `instagram_simulation` directory, and then run the following for each required csv file:
+
+```bash
+python generate_posts.py --csv_path <./data/input_csv> --avatars_dir ./assets/avatars --output_dir ./screenshot_simulation 
+```
+
+where:
+- `input_csv`: is the path to the csv file, under the data directory, containing all the input images.
+
+### Instagram filter simulation
+For creating the Instagram filter data, the following command can be run:
+
+```bash
+python instagram_filter.py filter --input_csv <./data/input_csv>
+```
+
+### Meme filters
+To simulate meme filters, you first have to go to the `meme-generatorV3/msc-dl2/` directory, then run the following: 
+
+```bash
+python meme-python.py <./data/input_csv>
+```
+
+### Reduced training set
+After downloading the `latent_diffusion_trainingset` and `COCO`, we used the following prompt to create a csv file consisting of all images: 
+
+```bash
+python -m spai.tools.modified_create_dmid_ldm_train_val_csv \
+  --train_dir "./datasets/latent_diffusion_trainingset/train" \
+  --val_dir "./datasets/latent_diffusion_trainingset/valid" \
+  --coco_dir "./datasets/COCO" \
+  -o "./datasets/ldm_train_val.csv"
+```
+
+To reduce the training set to 17,997 real and 17,997 generated images, we first ran `reduce_training_set.py` under the `datasets` directory, and then 
+
+```bash
+python ./datasets/training_dataset.py trainset --input_csv ./datasets/reduced_training_data.csv
+
+```
+in the main directory. 
