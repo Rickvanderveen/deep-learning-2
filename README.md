@@ -35,19 +35,8 @@ targeted a 48GB GPU, a suitable GPU should be presented to reproduce the paper's
 without further modifications of the code.  -->
 
 ### Required libraries
-#### Anaconda
-To train and evaluate SPAI an anaconda environment can be used for installing all the 
-required dependencies as following:
-
-```bash
-conda create -n spai python=3.11
-conda activate spai
-conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia
-pip install -r requirements.txt
-```
-
 #### UV
-The project can also be managed with [uv](https://docs.astral.sh/uv/). To use uv you should download it (https://docs.astral.sh/uv/getting-started/installation/).
+The project is managed with [uv](https://docs.astral.sh/uv/). To use uv you should download it (https://docs.astral.sh/uv/getting-started/installation/).
 
 To setup the environment go to the root of the project and run the following commands:
 ```bash
@@ -235,7 +224,7 @@ To compute the predicted scores for a set of images, place them under a director
 and use the following command.
 
 ```bash
-python -m spai infer \
+uv run python -m spai infer \
   --input <input_csv> \
   --output <output_folder> \
   --batch-size 8 \
@@ -250,7 +239,7 @@ where:
 To compute the average AUC of a fake imageset over several real imagesets, the following command can be executed: 
 
 ```bash
-python evaluate.py --metric auc --input_dir <input_dir>
+uv run python evaluate.py --metric auc --input_dir <input_dir>
 ```
 
 where:
