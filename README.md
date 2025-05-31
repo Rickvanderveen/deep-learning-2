@@ -1,4 +1,4 @@
-# ROGER: Robust AI-Generated Image Recognizer
+# ROGER: RObust AI-GEnerated image Recognizer 
 <!-- __Official code repository for the CVPR2025 paper [Any-Resolution AI-Generated Image Detection by Spectral Learning](https://arxiv.org/abs/2411.19417).__
 
 <div align="center";">
